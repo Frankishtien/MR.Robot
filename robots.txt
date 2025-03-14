@@ -1,0 +1,6 @@
+*
+/admin
+/root
+/etc/passwd
+/etc/shadow
+/users

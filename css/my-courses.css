@@ -1,0 +1,160 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1a1a1a, #121212); /* Gradient dark background */
+    color: #ffffff; /* White text */
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Course Cards Container */
+#courses-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Course Card Styles */
+.course-card {
+    background: rgba(255, 255, 255, 0.1); /* Glassmorphism effect */
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.course-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle divider */
+}
+
+.course-info {
+    padding: 20px;
+}
+
+.course-info h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.course-info .price {
+    font-size: 1.2rem;
+    color: #00ff88; /* Accent color for price */
+    margin: 10px 0;
+    font-weight: 500;
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.view-course {
+    background: linear-gradient(135deg, #00ff88, #00cc66); /* Gradient green */
+    color: #121212; /* Dark text */
+    margin-right: 10px;
+}
+
+.view-course:hover {
+    background: linear-gradient(135deg, #00cc66, #00aa55); /* Darker gradient on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+.remove-course {
+    background: linear-gradient(135deg, #ff4d4d, #e60000); /* Gradient red */
+    color: #ffffff; /* White text */
+}
+
+.remove-course:hover {
+    background: linear-gradient(135deg, #e60000, #cc0000); /* Darker gradient on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* No Courses Message */
+#courses-container p {
+    text-align: center;
+    color: #888;
+    font-size: 1.2rem;
+    margin-top: 20px;
+}
+
+/* Glassmorphism Effect for Buttons */
+.button {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover Effect for Buttons */
+.button:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .course-card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+
+/* Go Back Button Styles */
+.back-button-container {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff; /* White text */
+    background: rgba(255, 255, 255, 0.1); /* Glassmorphism effect */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    border-radius: 8px;
+    text-decoration: none; /* Remove underline */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.2); /* Lighter background on hover */
+    transform: translateY(-2px); /* Lift effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}

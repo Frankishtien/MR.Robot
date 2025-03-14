@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../photos/admin-logo.svg" type="image/svg+xml">
+    <title>Courses Page</title>
+    <link rel="stylesheet" href="../css/courses.css">
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+
+</head>
+<body>
+
+    <!-- ////////navbar/////// -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="#" onclick="window.location.href='../index.html'">Zero <span class="rotate-text">Day</span></a>
+        </div>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search...">
+            <button class="search-button" aria-label="Search">
+                <i class='bx bx-search'></i>
+              </button>              
+        </div>
+        <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
+        <div class="menu" id="menu">
+            <a href="#" onclick="window.location.href='../index.html'">Home</a>
+            <a href="#about" onclick="window.location.href='../index.html#about'">About</a>
+            <a href="#" onclick="window.location.href='../html/courses.html'">Courses</a>
+            <!-- Dropdown for 'Practices' -->
+            <div class="dropdown">
+                <button class="dropbtn">Practices 
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="window.location.href='./scratch-practice.html'">Scratch</a>
+                    <a href="#" onclick="window.location.href='./web-practice.html'">Web</a>
+                    <a href="#" onclick="window.location.href='./coming-soon.html'">C++</a>
+                    <a href="#" onclick="window.location.href='./coming-soon.html'">Python</a>
+                    <a href="#" onclick="window.location.href='./security-practice.html'">Security</a>
+                </div>
+            </div> 
+            <a href="#contact" onclick="window.location.href='../index.html#contact'">Contact</a>
+        </div>
+    </nav>
+    
+
+    <!-- ////////navbar/////// -->
+
+
+
+<!-- ////////////////heading///////////////// -->
+
+<section class="courses-section">
+    <div class="header">
+      <h1><span>Our</span> Courses</h1>
+    </div>
+    <!-- Floating Filter Button (Visible on Small Screens) -->
+    <button class="floating-filter" aria-label="Open filter menu">
+        <i class='bx bx-filter'></i>
+    </button>
+    
+    <div class="content-wrapper">
+        <div class="filter-bar">
+            <h2>Filter Courses</h2>
+        
+            <!-- Category Filters -->
+            <h3><i class='bx bx-category'></i> Category</h3>
+            <div class="filter-item">
+                <input type="checkbox" id="all" name="filter" value="All" checked>
+                <label for="all">All Courses</label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="scratch" name="filter" value="Scratch">
+                <label for="scratch">Scratch</label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="html" name="filter" value="HTML">
+                <label for="html">HTML</label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="css" name="filter" value="CSS">
+                <label for="css">CSS</label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="javascript" name="filter" value="JavaScript">
+                <label for="javascript">JavaScript</label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="python" name="filter" value="Python">
+                <label for="python">Python</label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="c++" name="filter" value="C++">
+                <label for="c++">C++</label>
+            </div>
+        
+            <!-- Language Filters -->
+            <h3><i class='bx bx-captions'></i> Language</h3>
+            <div class="filter-item">
+                <input type="checkbox" id="all-languages" name="language" value="all" checked>
+                <label for="all-languages">All Languages</label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="english" name="language" value="English">
+                <label for="english">English</label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="arabic" name="language" value="Arabic">
+                <label for="arabic">Arabic</label>
+            </div>
+        
+            <!-- Price Filters -->
+            <h3><i class='bx bx-money-withdraw'></i> Price</h3>
+            <div class="filter-item">
+                <input type="checkbox" id="all-prices" name="price" value="all" checked>
+                <label for="all-prices">All Prices</label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="free" name="price" value="free">
+                <label for="free">Free</label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="not-free" name="price" value="paid">
+                <label for="not-free">Not Free</label>
+            </div>
+        </div>
+    
+    <!-- Main Content -->
+    <div id="courses-container">
+
+
+
+        <div class="course-card" data-category="Scratch" data-course-id="scratch-1" data-language="Arabic" data-price="free">
+            <img src="../photos/course.jpg" alt="Scratch Basics" loading="lazy">
+            <div class="course-info">
+                <h3>Scratch Basics</h3>
+                <p class="price">Free <span class="sale">$100</span></p>
+                <div class="buttons">
+                    <button class="button add-to-cart" data-course-id="scratch-basics">Add to My-Courses</button>
+                    <button class="button view-course" onclick="window.location.href='./scratch-course.html'" data-href="./scratch-course.html">View Course</button>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <!-- Add more courses here -->
+
+       
+
+        <div class="course-card" data-category="Scratch" data-course-id="scratch-2" data-language="English" data-price="free">
+            <img src="../photos/course1.png" alt="Scratch Basics" loading="lazy">
+            <div class="course-info">
+                <h3>Scratch Basics</h3>
+                <p class="price">Free <span class="sale"></span></p>
+                <div class="buttons">
+                    <button class="button add-to-cart" data-course-id="scratch-basics">Add to My-Courses</button>
+                    <button class="button view-course" onclick="window.location.href='https://www.youtube.com/watch?v=D16hTnDGweo&list=PLy4zsTUHwGJJooiDHnqXSeHvKHIrXiAHS'" data-href="https://www.youtube.com/watch?v=D16hTnDGweo&list=PLy4zsTUHwGJJooiDHnqXSeHvKHIrXiAHS">View Course</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="course-card" data-category="Python" data-language="Arabic" data-price="paid">
+            <img src="../photos/python-course.jpg" alt="Python Advanced" loading="lazy">
+            <div class="course-info">
+                <h3>Python Advanced</h3>
+                <p class="price">$200</p>
+                <div class="buttons">
+                    <button class="button add-to-cart" data-course-id="python-advanced">Add to My-Courses</button>
+                    <button class="button view-course" onclick="window.location.href='./python-advanced-course.html'" data-href="./python-advanced-course.html">View Course</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        
+    </div>
+        
+        
+        
+
+        
+        
+    
+    <!-- No Courses Message -->
+    <div class="no-courses" id="no-courses">
+      <h2>Please, Select course Category </h2>
+      <img src="../photos/Webinar-pana.png" alt="notfound">
+    </div>
+    </div>
+    
+    
+    
+    
+    <script>
+        const filters = document.querySelectorAll('.filter-item input');
+        const coursesContainer = document.getElementById('courses-container');
+        const noCoursesMessage = document.getElementById('no-courses');
+        const allCheckbox = document.getElementById('all');
+        const floatingFilter = document.querySelector('.floating-filter');
+        const filterBar = document.querySelector('.filter-bar');
+        
+        // Toggle Filter Bar for Small Devices
+        floatingFilter.addEventListener('click', () => {
+            filterBar.classList.toggle('open');
+        });
+        
+        // Close Filter Bar on Outside Click
+        document.addEventListener('click', (event) => {
+            if (!filterBar.contains(event.target) && !floatingFilter.contains(event.target)) {
+                filterBar.classList.remove('open');
+            }
+        });
+        
+        filters.forEach(filter => {
+            filter.addEventListener('change', applyFilters);
+        });
+        
+        allCheckbox.addEventListener('change', () => {
+            if (allCheckbox.checked) {
+                filters.forEach(filter => {
+                    if (filter.id !== 'all') filter.checked = false;
+                });
+            }
+            applyFilters();
+        });
+        
+        function applyFilters() {
+            // Get selected categories
+            const selectedCategories = Array.from(document.querySelectorAll('input[name="filter"]:checked'))
+                .filter(filter => filter.id !== 'all')
+                .map(filter => filter.value);
+        
+            // Get selected languages
+            const selectedLanguages = Array.from(document.querySelectorAll('input[name="language"]:checked'))
+                .map(filter => filter.value);
+        
+            // Get selected prices
+            const selectedPrices = Array.from(document.querySelectorAll('input[name="price"]:checked'))
+                .map(filter => filter.value);
+        
+            // If no filters are selected and "All Courses" is not checked, show no courses
+            if (selectedCategories.length === 0 && selectedLanguages.length === 0 && selectedPrices.length === 0 && !allCheckbox.checked) {
+                noCoursesMessage.style.display = 'block';
+                coursesContainer.style.display = 'none';
+                return;
+            }
+        
+            noCoursesMessage.style.display = 'none';
+            coursesContainer.style.display = 'block';
+        
+            const courses = document.querySelectorAll('.course-card');
+            let visibleCourses = 0;
+        
+            courses.forEach(course => {
+                const category = course.getAttribute('data-category');
+                const language = course.getAttribute('data-language');
+                const price = course.getAttribute('data-price');
+        
+                // Check if the course matches the selected filters
+                const matchesCategory = allCheckbox.checked || selectedCategories.length === 0 || selectedCategories.includes(category);
+                const matchesLanguage = selectedLanguages.length === 0 || selectedLanguages.includes('all') || selectedLanguages.includes(language);
+                const matchesPrice = selectedPrices.length === 0 || selectedPrices.includes('all') || selectedPrices.includes(price);
+        
+                if (matchesCategory && matchesLanguage && matchesPrice) {
+                    course.style.display = 'inline-block';
+                    visibleCourses++;
+                } else {
+                    course.style.display = 'none';
+                }
+            });
+        
+            // If no courses match the filters, show the "no courses" message
+            if (visibleCourses === 0) {
+                noCoursesMessage.style.display = 'block';
+                coursesContainer.style.display = 'none';
+            }
+        }
+    </script>
+    
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <script type="module">
+   // Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDZPYgt6-X23p-gValJxK4IA-fIr0BIwoY",
+    authDomain: "courses-platform-755d5.firebaseapp.com",
+    projectId: "courses-platform-755d5",
+    storageBucket: "courses-platform-755d5.appspot.com",
+    messagingSenderId: "1092760035864",
+    appId: "1:1092760035864:web:b81d64a3ce01f2e5bed96d"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Add to My-Courses Functionality
+document.querySelectorAll('.add-to-cart').forEach(button => {
+  button.addEventListener('click', (e) => {
+    const card = e.target.closest('.course-card');
+    const courseId = card.getAttribute('data-course-id');
+    const courseTitle = card.querySelector('h3').textContent;
+    const coursePrice = card.querySelector('.price').textContent;
+    const courseImage = card.querySelector('img').src;
+
+    // Get current user
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userId = user.uid;
+
+        // Save course to Firebase
+        const courseData = {
+          id: courseId,
+          title: courseTitle,
+          price: coursePrice,
+          image: courseImage
+        };
+
+        console.log("Attempting to save:", courseData);
+
+        try {
+          // Use addDoc instead of setDoc to create a unique document each time
+          await addDoc(
+            collection(db, `users/${userId}/my-courses`),
+            courseData
+          );
+          alert('Course added to My-Courses!');
+        } catch (error) {
+          console.error("Error adding course: ", error);
+        }
+      } else {
+        alert("Please log in to add courses.");
+      }
+    });
+  });
+});
+
+
+
+
+
+
+</script> -->
+
+
+<script type="module">
+  
+</script>
+
+<script type="module">
+// Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { 
+    getAuth, 
+    onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+import { 
+    getFirestore, 
+    collection, 
+    query, 
+    where, 
+    getDocs, 
+    addDoc 
+} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDZPYgt6-X23p-gValJxK4IA-fIr0BIwoY",
+    authDomain: "courses-platform-755d5.firebaseapp.com",
+    projectId: "courses-platform-755d5",
+    storageBucket: "courses-platform-755d5.appspot.com",
+    messagingSenderId: "1092760035864",
+    appId: "1:1092760035864:web:b81d64a3ce01f2e5bed96d"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Check authentication state
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        const userId = user.uid;
+        console.log("User is logged in with UID:", userId);
+
+        // Add event listeners to all "Add to Cart" buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', async (e) => {
+                const card = e.target.closest('.course-card');
+                const courseId = card.getAttribute('data-course-id');
+                const courseTitle = card.querySelector('h3').textContent;
+                const coursePrice = card.querySelector('.price').textContent;
+                const courseImage = card.querySelector('img').src;
+                const courseRef = card.querySelector('.view-course').dataset.href;
+
+                // Reference to the user's my-courses collection
+                const myCoursesRef = collection(db, `users/${userId}/my-courses`);
+                const courseQuery = query(myCoursesRef, where("id", "==", courseId));
+
+                try {
+                    console.log("Checking if course already exists with ID:", courseId);
+
+                    // Check if the course already exists for this user
+                    const querySnapshot = await getDocs(courseQuery);
+
+                    if (!querySnapshot.empty) {
+                        console.warn("Course already added:", courseId);
+                        alert('You have already added this course.');
+                    } else {
+                        // Save course if not already added
+                        const courseData = {
+                            id: courseId,
+                            title: courseTitle,
+                            price: coursePrice,
+                            image: courseImage,
+                            courseRef: courseRef
+                        };
+
+                        console.log("Adding new course:", courseData);
+
+                        // Use addDoc to create a new document with a unique ID
+                        await addDoc(myCoursesRef, courseData);
+                        alert('Course added to My-Courses!');
+                    }
+                } catch (error) {
+                    console.error("Error checking or adding course: ", error);
+                    alert("Failed to add course. Please try again.");
+                }
+            });
+        });
+    } else {
+        console.warn("User is not logged in.");
+        alert("Please log in to add courses.");
+    }
+});
+</script>
+
+
+
+  <!-- /////////////////////////// -->
+
+
+
+  
+    <script type="module" src="../js/courses.js"></script>
+</body>
+</html>

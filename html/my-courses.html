@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses</title>
+    <style>
+        .remove-course {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .remove-course:hover {
+            background-color: #e60000;
+        }
+        
+    </style>
+    <link rel="stylesheet" href="../css/my-courses.css">
+</head>
+<body>
+
+
+
+    <!-- Go Back Button -->
+    <div class="back-button-container">
+        <a href="../index.html" class="back-button">← Go Back to Main Page</a>
+    </div>
+
+
+    <h1>My Courses</h1>
+    <div id="courses-container">
+        <!-- Courses will be dynamically added here -->
+    </div>
+
+    
+
+    <!-- Firebase Modular v11.3.1 -->
+    <script type="module">
+        // Import Firebase modules
+        import { 
+            initializeApp 
+        } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { 
+            getAuth, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            collection, 
+            getDocs, 
+            deleteDoc, 
+            doc 
+        } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+    
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZPYgt6-X23p-gValJxK4IA-fIr0BIwoY",
+            authDomain: "courses-platform-755d5.firebaseapp.com",
+            projectId: "courses-platform-755d5",
+            storageBucket: "courses-platform-755d5.appspot.com",
+            messagingSenderId: "1092760035864",
+            appId: "1:1092760035864:web:b81d64a3ce01f2e5bed96d"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+    
+        // Function to display courses
+        async function displayCourses() {
+            const coursesContainer = document.querySelector('#courses-container');
+            coursesContainer.innerHTML = ''; // Clear previous content
+    
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    const userId = user.uid;
+                    const myCoursesRef = collection(db, `users/${userId}/my-courses`);
+                    
+                    try {
+                        const querySnapshot = await getDocs(myCoursesRef);
+    
+                        // Clear container before rendering
+                        coursesContainer.innerHTML = '';
+    
+                        querySnapshot.forEach((docSnap) => {
+                            const course = docSnap.data();
+                            const courseId = docSnap.id; // Get document ID
+    
+                            console.log("Course ID:", courseId); // Debug
+    
+                            // Create course card
+                            const courseCard = document.createElement('div');
+                            courseCard.classList.add('course-card');
+                            courseCard.innerHTML = `
+                                <img src="${course.image}" alt="${course.title}" loading="lazy">
+                                <div class="course-info">
+                                    <h3>${course.title}</h3>
+                                    <p class="price">${course.price}</p>
+                                    <button class="button view-course" onclick="window.location.href='${course.courseRef}'">Start Course</button>
+                                    <button class="button remove-course" data-course-id="${courseId}">Remove Course</button>
+                                </div>
+                            `;
+    
+                            coursesContainer.appendChild(courseCard);
+                        });
+    
+                        if (querySnapshot.empty) {
+                            coursesContainer.innerHTML = '<p>No courses added yet.</p>';
+                        }
+    
+                        // Attach event listeners for the remove buttons
+                        document.querySelectorAll('.remove-course').forEach(button => {
+                            button.addEventListener('click', async (e) => {
+                                const courseId = e.target.getAttribute('data-course-id');
+                                console.log("Removing Course ID:", courseId); // Debug
+                                const courseRef = doc(db, `users/${userId}/my-courses/${courseId}`);
+                                
+                                try {
+                                    await deleteDoc(courseRef);
+                                    alert('Course removed!');
+                                    displayCourses(); // Refresh the list
+                                } catch (error) {
+                                    console.error("Error removing course: ", error);
+                                }
+                            });
+                        });
+    
+                    } catch (error) {
+                        console.error("Error fetching courses: ", error);
+                    }
+                } else {
+                    coursesContainer.innerHTML = '<p>Please log in to see your courses.</p>';
+                }
+            });
+        }
+    
+        // Load courses when the page is ready
+        window.addEventListener('load', displayCourses);
+    </script>
+    <script type="module" src="../js/my-courses.js"></script>
+</body>
+</html>
