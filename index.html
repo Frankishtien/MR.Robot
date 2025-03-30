@@ -14,11 +14,62 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Firebase App (Core SDK) -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
 <!-- Firebase Authentication -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<style>
+    /* Navbar streak counter styles */
+.navbar-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-left: auto;
+  }
+  
+  .streak-counter {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    background-color: rgba(255, 235, 59, 0.2);
+    border-radius: 20px;
+    font-weight: 600;
+    color: #ff9800;
+    border: 1px solid rgba(255, 152, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .streak-icon {
+    font-size: 1.2em;
+  }
+  
+  .streak-days {
+    font-size: 0.9em;
+  }
+  
+  /* Animation for when streak updates */
+  .streak-pop {
+    animation: streakPop 0.5s ease;
+    background-color: rgba(255, 235, 59, 0.4);
+  }
+  
+  @keyframes streakPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .streak-counter {
+      padding: 4px 8px;
+      font-size: 0.8em;
+    }
+  }
+</style>
 
     <title>MR.Robot</title>
 </head>
@@ -28,12 +79,12 @@
         <div class="logo">
             <a href="#" onclick="window.location.href='./index.html'">MR. <span class="rotate-text">ROBOT</span></a>
           </div>
-        <div class="search-container">
+        <!-- <div class="search-container">
             <input type="text" class="search-input" placeholder="Search...">
             <button class="search-button" aria-label="Search">
                 <i class='bx bx-search'></i>
               </button>              
-        </div>
+        </div> -->
         <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
         <div class="menu" id="menu">
             <a href="#" onclick="window.location.href='./index.html'">Home</a>
@@ -54,6 +105,103 @@
             </div> 
             <a href="#contact">Contact</a>
             <a href="#" onclick="window.location.href='./html/my-courses.html'" title="my-courses"><i class='bx bx-collection'></i></a>
+            <!-- ///////////// -->
+            <div class="streak-counter">
+                <span class="streak-icon"><i class='bx bxs-hot' style='color:#ffffff' ></i></span>
+                <span class="streak-days" id="streakDisplay">0</span>
+              </div>
+              <script>
+                import { getAuth, onAuthStateChanged } from "firebase/auth";
+                import { getDatabase, ref, onValue, get, set, update } from "firebase/database";
+                
+                // Initialize Firebase (make sure you've done this elsewhere in your app)
+                
+                // Function to update streak when user visits
+                export function updateStreak() {
+                  const auth = getAuth();
+                  const db = getDatabase();
+                  
+                  if (auth.currentUser) {
+                    const userId = auth.currentUser.uid;
+                    const userRef = ref(db, `users/${userId}/streak`);
+                    const today = new Date().toISOString().split('T')[0];
+                    
+                    get(userRef).then((snapshot) => {
+                      if (snapshot.exists()) {
+                        const streakData = snapshot.val();
+                        const yesterday = new Date();
+                        yesterday.setDate(yesterday.getDate() - 1);
+                        const yesterdayStr = yesterday.toISOString().split('T')[0];
+                        
+                        if (streakData.lastVisit === today) {
+                          return; // Already visited today
+                        } else if (streakData.lastVisit === yesterdayStr) {
+                          update(userRef, {
+                            current: streakData.current + 1,
+                            lastVisit: today
+                          });
+                        } else {
+                          update(userRef, {
+                            current: 1,
+                            lastVisit: today
+                          });
+                        }
+                      } else {
+                        set(userRef, {
+                          current: 1,
+                          lastVisit: today
+                        });
+                      }
+                    });
+                  }
+                }
+                
+                // Function to display streak
+                export function initializeStreakCounter() {
+                  const auth = getAuth();
+                  const db = getDatabase();
+                  
+                  onAuthStateChanged(auth, (user) => {
+                    const streakDisplay = document.getElementById('streakDisplay');
+                    
+                    if (user) {
+                      const streakRef = ref(db, `users/${user.uid}/streak`);
+                      
+                      onValue(streakRef, (snapshot) => {
+                        if (snapshot.exists()) {
+                          const streak = snapshot.val().current;
+                          streakDisplay.textContent = `${streak} day${streak !== 1 ? 's' : ''}`;
+                          
+                          if (streak > 1) {
+                            streakDisplay.parentElement.classList.add('streak-pop');
+                            setTimeout(() => {
+                              streakDisplay.parentElement.classList.remove('streak-pop');
+                            }, 1000);
+                          }
+                        }
+                      });
+                    } else {
+                      streakDisplay.textContent = '0 days';
+                    }
+                  });
+                }
+                
+                // Call these when your app loads
+                initializeStreakCounter();
+                
+                // Call updateStreak() after successful login and on page load
+                // Example for login:
+                function handleLogin() {
+                  signInWithEmailAndPassword(auth, email, password)
+                    .then(() => {
+                      updateStreak(); // Update streak after successful login
+                    })
+                    .catch(error => {
+                      console.error("Login error:", error);
+                    });
+                }
+              </script>
+            <!-- ///////////// -->
            <!-- Sign In Button -->
             <!-- <button id="sign-in-button" class="sign-in" onclick="window.open('./html/sign-in.html', '_blank')">Sign in</button> -->
             <button id="sign-in-button" class="sign-in" onclick="window.location.href='./html/sign-in.html'">Sign in</button>
@@ -471,8 +619,8 @@
 <div class="slider">
   <div class="slides">
       <div class="slide">
-          <img src="./photos/login.jpg" alt="Slide 1" loading="lazy" onclick="window.open('https://www.google.com', '_blank');">
-          <div class="text">Cyber security Roadmap</div>
+          <img src="./photos/web-roadmap.jpg" alt="Slide 1" loading="lazy" onclick="window.open('https://www.google.com', '_blank');">
+          <div class="text">web-roadmap Roadmap</div>
       </div>
       <div class="slide">
           <img src="./photos/web-roadmap.jpg" alt="Slide 2" loading="lazy">
