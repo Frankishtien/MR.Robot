@@ -2909,6 +2909,12 @@ footer a:hover {
         }
         
 
+
+        @media (max-width: 768px) {
+          .sidebar{
+            display: none;
+          }
+        }
 /* ////////////// side bar //////////////// */
 /* ////////////// side bar //////////////// */
 
