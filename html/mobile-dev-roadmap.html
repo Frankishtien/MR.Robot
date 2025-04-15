@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Development Roadmap</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #00b894;
+      --primary-dark: #00876a;
+      --secondary: #55efc4;
+      --dark-bg: #0a0a12;
+      --darker-bg: #05050a;
+      --card-bg: #151520;
+      --text: #e0e0ff;
+      --text-secondary: #b0b0d0;
+      --accent: #00cec9;
+      --success: #4cc9f0;
+    }
+    
+    /* (Keep all the same base styles from previous roadmaps, just updating colors) */
+    
+    .skill-card i {
+      color: var(--primary);
+    }
+    
+    .level-title {
+      color: var(--primary);
+      border-color: rgba(0, 184, 148, 0.3);
+    }
+    
+    .level-title:hover {
+      border-color: var(--primary);
+      box-shadow: 0 15px 30px rgba(0, 184, 148, 0.2);
+    }
+    
+    .level-title::before {
+      background-color: var(--primary);
+    }
+    
+    .skill-card::before {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    
+    .specialization-card.active {
+      border-color: var(--primary);
+      box-shadow: 0 0 30px rgba(0, 184, 148, 0.3);
+    }
+    
+    .specialization-card::before {
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    
+    .certification-card {
+      border-left-color: var(--primary);
+    }
+    
+    /* (Keep all other styles the same) */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(110, 72, 170, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(71, 118, 230, 0.15) 0%, transparent 50%);
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .header h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+    }
+    
+    .header p {
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+    
+    .roadmap {
+      position: relative;
+      padding: 2rem 0;
+    }
+    
+    .path-line {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, 
+        transparent 0%, 
+        var(--primary) 10%, 
+        var(--primary) 90%, 
+        transparent 100%);
+      z-index: 1;
+    }
+    
+    .level {
+      position: relative;
+      margin-bottom: 3rem;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .level-title {
+      background-color: var(--card-bg);
+      border: 1px solid rgba(110, 72, 170, 0.3);
+      border-radius: 8px;
+      padding: 1.5rem 2.5rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      margin-bottom: 2rem;
+      position: relative;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+      width: fit-content;
+    }
+    
+    .level-title:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(110, 72, 170, 0.2);
+      border-color: var(--primary);
+    }
+    
+    .level-title::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      z-index: 3;
+    }
+    
+    .skills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .skill-card {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      padding: 1.5rem;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(110, 72, 170, 0.15);
+      border-color: rgba(110, 72, 170, 0.3);
+    }
+    
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    
+    .skill-card i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .skill-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .skill-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .specializations {
+      margin-top: 4rem;
+      text-align: center;
+    }
+    
+    .specializations h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--text);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .specializations h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+    }
+    
+    .specialization-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .specialization-card {
+      background-color: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+    }
+    
+    .specialization-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(110, 72, 170, 0.2);
+    }
+    
+    .specialization-card.active {
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 30px rgba(110, 72, 170, 0.3);
+    }
+    
+    .specialization-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    
+    .specialization-card i {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+    
+    .specialization-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    
+    .specialization-card p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    
+    .certification-path {
+      margin-top: 3rem;
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .certification-path.active {
+      display: block;
+    }
+    
+    .certifications {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .certification-card {
+      background-color: var(--darker-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      width: 220px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border-left: 4px solid var(--primary);
+    }
+    
+    .certification-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(110, 72, 170, 0.1);
+    }
+    
+    .certification-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .certification-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .certification-card .difficulty {
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .certification-card .difficulty i {
+      color: var(--primary);
+      margin-right: 0.3rem;
+      font-size: 0.9rem;
+    }
+    
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--darker-bg);
+      color: var(--text);
+      text-align: center;
+      border-radius: 6px;
+      padding: 10px;
+      position: absolute;
+      z-index: 10;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 20px rgba(110, 72, 170, 0.2);
+    }
+    
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .path-line {
+        display: none;
+      }
+      
+      .level-title::before {
+        display: none;
+      }
+      
+      .skills {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .skill-card {
+        width: 100%;
+        max-width: 250px;
+      }
+      
+      .specialization-card {
+        width: 100%;
+        max-width: 350px;
+      }
+      
+      .certification-card {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+
+
+
+
+
+
+    
+    /* Animations */ 
+.level, .specialization-cards, .certifications { 
+    opacity: 0; 
+    transform: translateY(30px); 
+    transition: opacity 0.6s ease, transform 0.6s ease; 
+  } 
+   
+  .visible { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+
+  .glow {
+    text-shadow: 0 0 10px rgb(0, 255, 145);
+  }
+  
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Mobile Development Roadmap</h1>
+      <p>Your guided path to becoming a mobile developer with recommended skills and platforms</p>
+    </div>
+    
+    <div class="roadmap">
+      <div class="path-line"></div>
+      
+      <!-- Level 1: Foundation -->
+      <div class="level">
+        <div class="level-title">
+          <i class="fas fa-mobile-alt"></i> Foundation Level
+        </div>
+        <div class="skills">
+          <div class="skill-card tooltip">
+            <i class="fas fa-code"></i>
+            <h3>Programming Basics</h3>
+            <p>Variables, Loops, Functions</p>
+            <span class="tooltiptext">Core programming concepts for all development</span>
+          </div>
+          
+          <div class="skill-card tooltip">
+            <i class="fas fa-paint-brush"></i>
+            <h3>UI/UX Principles</h3>
+            <p>Mobile Design Patterns</p>
+            <span class="tooltiptext">Designing intuitive mobile interfaces</span>
+          </div>
+          
+          <div class="skill-card tooltip">
+            <i class="fas fa-network-wired"></i>
+            <h3>APIs & JSON</h3>
+            <p>REST, GraphQL</p>
+            <span class="tooltiptext">Working with backend services</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Level 2: Core Skills -->
+      <div class="level">
+        <div class="level-title">
+          <i class="fas fa-laptop-code"></i> Core Development
+        </div>
+        <div class="skills">
+          <div class="skill-card tooltip">
+            <i class="fab fa-git-alt"></i>
+            <h3>Version Control</h3>
+            <p>Git, GitHub</p>
+            <span class="tooltiptext">Collaborative code management</span>
+          </div>
+          
+          <div class="skill-card tooltip">
+            <i class="fas fa-database"></i>
+            <h3>Local Storage</h3>
+            <p>SQLite, Realm</p>
+            <span class="tooltiptext">Client-side data persistence</span>
+          </div>
+          
+          <div class="skill-card tooltip">
+            <i class="fas fa-shield-alt"></i>
+            <h3>App Security</h3>
+            <p>Auth, Encryption</p>
+            <span class="tooltiptext">Securing mobile applications</span>
+          </div>
+          
+          <div class="skill-card tooltip">
+            <i class="fas fa-tachometer-alt"></i>
+            <h3>Performance</h3>
+            <p>Optimization Techniques</p>
+            <span class="tooltiptext">Building efficient apps</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Level 3: Specializations -->
+      <div class="level">
+        <div class="level-title">
+          <i class="fas fa-robot"></i> Platform Specializations
+        </div>
+        <div class="specializations">
+          <h2>Choose Your Mobile Platform</h2>
+          
+          <div class="specialization-cards">
+            <div class="specialization-card" id="android-card">
+              <i class="fab fa-android"></i>
+              <h3>Android Development</h3>
+              <p>Native Android apps with Kotlin/Java</p>
+              <small>Google Play Ecosystem</small>
+            </div>
+            
+            <div class="specialization-card" id="ios-card">
+              <i class="fab fa-apple"></i>
+              <h3>iOS Development</h3>
+              <p>Native iOS apps with Swift</p>
+              <small>Apple App Store</small>
+            </div>
+            
+            <div class="specialization-card" id="cross-card">
+              <i class="fas fa-mobile"></i>
+              <h3>Cross-Platform</h3>
+              <p>React Native, Flutter</p>
+              <small>Build for both platforms</small>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Android Path -->
+        <div class="certification-path" id="android-path">
+          <h3>Android Development Path</h3>
+          <div class="certifications">
+            <div class="certification-card tooltip">
+              <h4>Kotlin Basics</h4>
+              <p>Language Fundamentals</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>Beginner</span>
+              </div>
+              <span class="tooltiptext">Core Kotlin syntax and features</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>Android Components</h4>
+              <p>Activities, Fragments</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>Intermediate</span>
+              </div>
+              <span class="tooltiptext">Key Android building blocks</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>Jetpack Compose</h4>
+              <p>Modern UI Toolkit</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>Advanced</span>
+              </div>
+              <span class="tooltiptext">Declarative UI framework</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- iOS Path -->
+        <div class="certification-path" id="ios-path">
+          <h3>iOS Development Path</h3>
+          <div class="certifications">
+            <div class="certification-card tooltip">
+              <h4>Swift Basics</h4>
+              <p>Language Fundamentals</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>Beginner</span>
+              </div>
+              <span class="tooltiptext">Core Swift syntax and features</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>UIKit</h4>
+              <p>View Controllers</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>Intermediate</span>
+              </div>
+              <span class="tooltiptext">Traditional iOS UI framework</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>SwiftUI</h4>
+              <p>Declarative UI</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>Advanced</span>
+              </div>
+              <span class="tooltiptext">Modern iOS UI framework</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Cross-Platform Path -->
+        <div class="certification-path" id="cross-path">
+          <h3>Cross-Platform Path</h3>
+          <div class="certifications">
+            <div class="certification-card tooltip">
+              <h4>React Native</h4>
+              <p>JavaScript Framework</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>Intermediate</span>
+              </div>
+              <span class="tooltiptext">Facebook's cross-platform solution</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>Flutter</h4>
+              <p>Dart Framework</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>Advanced</span>
+              </div>
+              <span class="tooltiptext">Google's UI toolkit for multiplatform</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>State Management</h4>
+              <p>Redux, Provider</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>Advanced</span>
+              </div>
+              <span class="tooltiptext">Managing complex app state</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Specialization selection
+      const androidCard = document.getElementById('android-card');
+      const iosCard = document.getElementById('ios-card');
+      const crossCard = document.getElementById('cross-card');
+      
+      const androidPath = document.getElementById('android-path');
+      const iosPath = document.getElementById('ios-path');
+      const crossPath = document.getElementById('cross-path');
+
+      function hideAllPaths() {
+        androidPath.style.display = 'none';
+        iosPath.style.display = 'none';
+        crossPath.style.display = 'none';
+        
+        androidCard.classList.remove('active');
+        iosCard.classList.remove('active');
+        crossCard.classList.remove('active');
+      }
+
+      function showPath(pathElement, cardElement) {
+        hideAllPaths();
+        pathElement.style.display = 'block';
+        cardElement.classList.add('active');
+      }
+
+      androidCard.addEventListener('click', function() {
+        showPath(androidPath, androidCard);
+      });
+
+      iosCard.addEventListener('click', function() {
+        showPath(iosPath, iosCard);
+      });
+
+      crossCard.addEventListener('click', function() {
+        showPath(crossPath, crossCard);
+      });
+
+      // Show Android path by default
+      showPath(androidPath, androidCard);
+    });
+  </script>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const animatedSections = document.querySelectorAll('.level, .specialization-cards, .certifications');
+  
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // animate only once
+          }
+        });
+      }, {
+        threshold: 0.2
+      });
+  
+      animatedSections.forEach(section => observer.observe(section));
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add glow effect on hover for specialization cards 
+      const specCards = document.querySelectorAll('.specialization-card'); 
+  
+      specCards.forEach(card => { 
+        card.addEventListener('mouseenter', () => { 
+          const icon = card.querySelector('i');
+          if (icon) icon.classList.add('glow'); 
+        }); 
+         
+        card.addEventListener('mouseleave', () => { 
+          const icon = card.querySelector('i');
+          if (icon) icon.classList.remove('glow'); 
+        }); 
+      }); 
+    });
+  </script>
+</body>
+</html>

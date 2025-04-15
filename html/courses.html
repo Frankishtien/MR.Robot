@@ -132,7 +132,7 @@
         <div class="course-card" data-category="Scratch" data-course-id="scratch-1" data-language="Arabic" data-price="free">
             <img src="../photos/course.jpg" alt="Scratch Basics" loading="lazy">
             <div class="course-info">
-                <h3>Scratch Basics</h3>
+                <h3>Scratch Basics with learn how to make game in 3 second</h3>
                 <p class="price">Free <span class="sale">$100</span></p>
                 <div class="buttons">
                     <button class="button add-to-cart" data-course-id="scratch-basics">Add to My-Courses</button>
@@ -400,12 +400,23 @@ onAuthStateChanged(auth, (user) => {
 
 
 
+  <script type="module">
+    // 1. Import Firebase (must use type="module")
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
 
+    // 4. Check auth status
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        console.log("Redirecting to sign-in...");
+        window.location.replace("./sign-in.html?from=" + 
+          encodeURIComponent(window.location.pathname));
+        return;
+      }
+      console.log("User logged in:", user.email);
+    });
 
-
-
-
-
+  </script>
 
 
 
@@ -433,6 +444,6 @@ onAuthStateChanged(auth, (user) => {
 
 
   
-    <script type="module" src="../js/courses.js"></script>
+    <script type="module" src="../js/courses.js" ></script>
 </body>
 </html>

@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cybersecurity Career Roadmap</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #00f0ff;
+      --primary-dark: #00a8b5;
+      --secondary: #ff4d4d;
+      --dark-bg: #0a0a12;
+      --darker-bg: #05050a;
+      --card-bg: #151520;
+      --text: #e0e0ff;
+      --text-secondary: #b0b0d0;
+      --accent: #7b2cbf;
+      --success: #4cc9f0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(123, 44, 191, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 75% 75%, rgba(0, 240, 255, 0.15) 0%, transparent 50%);
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      position: relative;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .header h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+    }
+    
+    .header p {
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+    
+    .roadmap {
+      position: relative;
+      padding: 2rem 0;
+    }
+    
+    .path-line {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, 
+        transparent 0%, 
+        var(--primary) 10%, 
+        var(--primary) 90%, 
+        transparent 100%);
+      z-index: 1;
+    }
+    
+    .level {
+      position: relative;
+      margin-bottom: 3rem;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .level-title {
+      background-color: var(--card-bg);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 8px;
+      padding: 1.5rem 2.5rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      margin-bottom: 2rem;
+      position: relative;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+      width: fit-content;
+    }
+    
+    .level-title:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 240, 255, 0.2);
+      border-color: var(--primary);
+    }
+    
+    .level-title::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      z-index: 3;
+    }
+    
+    .skills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .skill-card {
+      background-color: var(--card-bg);
+      border-radius: 10px;
+      padding: 1.5rem;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 240, 255, 0.15);
+      border-color: rgba(0, 240, 255, 0.3);
+    }
+    
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    
+    .skill-card i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .skill-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .skill-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .specializations {
+      margin-top: 4rem;
+      text-align: center;
+    }
+    
+    .specializations h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--text);
+      position: relative;
+      display: inline-block;
+    }
+    
+    .specializations h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+    }
+    
+    .specialization-cards {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .specialization-card {
+      background-color: var(--card-bg);
+      border-radius: 15px;
+      padding: 2rem;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+    }
+    
+    .specialization-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 240, 255, 0.2);
+    }
+    
+    .specialization-card.active {
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+    }
+    
+    .specialization-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    
+    .specialization-card i {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+    
+    .specialization-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    
+    .specialization-card p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+    
+    .certification-path {
+      margin-top: 3rem;
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .certifications {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .certification-card {
+      background-color: var(--darker-bg);
+      border-radius: 8px;
+      padding: 1.5rem;
+      width: 220px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      border-left: 4px solid var(--primary);
+    }
+    
+    .certification-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 240, 255, 0.1);
+    }
+    
+    .certification-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .certification-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    
+    .certification-card .difficulty {
+      margin-top: 0.8rem;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .certification-card .difficulty i {
+      color: var(--primary);
+      margin-right: 0.3rem;
+      font-size: 0.9rem;
+    }
+    
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 200px;
+      background-color: var(--darker-bg);
+      color: var(--text);
+      text-align: center;
+      border-radius: 6px;
+      padding: 10px;
+      position: absolute;
+      z-index: 10;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      border: 1px solid var(--primary);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+    }
+    
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .path-line {
+        display: none;
+      }
+      
+      .level-title::before {
+        display: none;
+      }
+      
+      .skills {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .skill-card {
+        width: 100%;
+        max-width: 250px;
+      }
+      
+      .specialization-card {
+        width: 100%;
+        max-width: 350px;
+      }
+    }
+
+
+
+
+
+    /* Animations */ 
+.level, .specialization-cards, .certifications { 
+    opacity: 0; 
+    transform: translateY(30px); 
+    transition: opacity 0.6s ease, transform 0.6s ease; 
+  } 
+   
+  .visible { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+
+  .glow {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+  }
+  
+
+
+  /*this for platfoms*/
+
+    /* Practice Platforms Section Styles */
+    .practice-platforms {
+        margin-top: 5rem;
+        text-align: center;
+        padding: 0 2rem;
+      }
+    
+      .practice-platforms h2 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: var(--text);
+        position: relative;
+        display: inline-block;
+      }
+    
+      .practice-platforms h2::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        border-radius: 3px;
+      }
+    
+      .platform-cards {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+    
+      .platform-card {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        overflow: hidden;
+        width: 300px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    
+      .platform-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 240, 255, 0.1);
+      }
+    
+      .platform-header {
+        padding: 2rem;
+        color: white;
+        text-align: center;
+      }
+    
+      .platform-header i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+    
+      .platform-header h3 {
+        font-size: 1.5rem;
+        margin: 0;
+      }
+    
+      .platform-body {
+        padding: 1.5rem;
+        text-align: center;
+      }
+    
+      .platform-body p {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+      }
+    
+      .platform-features {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+        text-align: left;
+      }
+    
+      .platform-features span {
+        color: var(--text);
+        font-size: 0.9rem;
+      }
+    
+      .platform-features i {
+        color: var(--primary);
+        margin-right: 0.5rem;
+      }
+    
+      .platform-button {
+        display: inline-block;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: transform 0.2s ease;
+      }
+    
+      .platform-button:hover {
+        transform: scale(1.05);
+      }
+    
+      @media (max-width: 768px) {
+        .platform-card {
+          width: 100%;
+          max-width: 350px;
+        }
+      }
+  
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Cybersecurity Career Roadmap</h1>
+      <p>Your guided path to becoming a cybersecurity professional with recommended certifications and skills at each level</p>
+    </div>
+    
+    <div class="roadmap">
+      <div class="path-line"></div>
+      
+      <!-- Level 1: Foundation -->
+      <div class="level">
+        <div class="level-title">
+          <i class="fas fa-layer-group"></i> Foundation Level
+        </div>
+        <div class="skills">
+          <div class="skill-card tooltip">
+            <i class="fab fa-windows"></i>
+            <h3>Operating Systems</h3>
+            <p>Windows & Linux Basics</p>
+            <span class="tooltiptext">Understand file systems, processes, and basic administration</span>
+          </div>
+          
+          <div class="skill-card tooltip">
+            <i class="fas fa-network-wired"></i>
+            <h3>Networking</h3>
+            <p>TCP/IP, DNS, DHCP</p>
+            <span class="tooltiptext">Learn fundamental networking concepts and protocols</span>
+          </div>
+          
+          <div class="skill-card tooltip">
+            <i class="fas fa-terminal"></i>
+            <h3>CLI Skills</h3>
+            <p>Command Line Basics</p>
+            <span class="tooltiptext">Master command line interfaces for Windows and Linux</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Level 2: Core Skills -->
+      <div class="level">
+        <div class="level-title">
+          <i class="fas fa-shield-alt"></i> Core Cybersecurity
+        </div>
+        <div class="skills">
+          <div class="skill-card tooltip">
+            <i class="fas fa-lock"></i>
+            <h3>Security+</h3>
+            <p>CompTIA Certification</p>
+            <span class="tooltiptext">Industry-standard foundational security certification</span>
+          </div>
+          
+          <div class="skill-card tooltip">
+            <i class="fab fa-linux"></i>
+            <h3>Linux+</h3>
+            <p>Advanced Linux Skills</p>
+            <span class="tooltiptext">Deepen your Linux administration and security knowledge</span>
+          </div>
+          
+          <div class="skill-card tooltip">
+            <i class="fas fa-server"></i>
+            <h3>Network+</h3>
+            <p>Advanced Networking</p>
+            <span class="tooltiptext">Understand network security and infrastructure</span>
+          </div>
+          
+          <div class="skill-card tooltip">
+            <i class="fas fa-code"></i>
+            <h3>Scripting</h3>
+            <p>Python/Bash</p>
+            <span class="tooltiptext">Automate tasks with scripting languages</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Level 3: Specializations -->
+      <div class="level">
+        <div class="level-title">
+          <i class="fas fa-chess-queen"></i> Specialization Paths
+        </div>
+        <div class="specializations">
+          <h2>Choose Your Cybersecurity Focus</h2>
+          
+          <div class="specialization-cards">
+            <div class="specialization-card" id="pentesting-card">
+              <i class="fas fa-user-secret"></i>
+              <h3>Penetration Testing</h3>
+              <p>Ethical hacking and vulnerability assessment</p>
+              <small>Offensive Security Path</small>
+            </div>
+            
+            <div class="specialization-card" id="soc-card">
+              <i class="fas fa-desktop"></i>
+              <h3>Security Operations</h3>
+              <p>Threat detection and incident response</p>
+              <small>Blue Team Path</small>
+            </div>
+            
+            <div class="specialization-card" id="malware-card">
+              <i class="fas fa-biohazard"></i>
+              <h3>Malware Analysis</h3>
+              <p>Reverse engineering and threat research</p>
+              <small>Forensics Path</small>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pentesting Certification Path -->
+        <div class="certification-path" id="pentesting-path">
+          <h3>Penetration Testing Certification Path</h3>
+          <div class="certifications">
+            <div class="certification-card tooltip">
+              <h4>CEH</h4>
+              <p>Certified Ethical Hacker</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>Intermediate</span>
+              </div>
+              <span class="tooltiptext">EC-Council's entry-level ethical hacking certification</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>PenTest+</h4>
+              <p>CompTIA Penetration Testing</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>Intermediate</span>
+              </div>
+              <span class="tooltiptext">Vendor-neutral penetration testing certification</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>eJPT</h4>
+              <p>eLearnSecurity Junior Pen Tester</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>Advanced</span>
+              </div>
+              <span class="tooltiptext">Practical junior penetration testing certification</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>OSCP</h4>
+              <p>Offensive Security Certified Professional</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>Expert</span>
+              </div>
+              <span class="tooltiptext">Gold standard for penetration testing certifications</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- SOC Certification Path -->
+        <div class="certification-path" id="soc-path">
+          <h3>Security Operations Certification Path</h3>
+          <div class="certifications">
+            <div class="certification-card tooltip">
+              <h4>CySA+</h4>
+              <p>Cybersecurity Analyst</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <span>Intermediate</span>
+              </div>
+              <span class="tooltiptext">CompTIA's cybersecurity analyst certification</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>Splunk Certified</h4>
+              <p>Splunk Core Certified User</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>Intermediate</span>
+              </div>
+              <span class="tooltiptext">SIEM platform certification for security monitoring</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>GCIA</h4>
+              <p>GIAC Certified Intrusion Analyst</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>Advanced</span>
+              </div>
+              <span class="tooltiptext">Network monitoring and intrusion detection</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Malware Analysis Certification Path -->
+        <div class="certification-path" id="malware-path">
+          <h3>Malware Analysis Certification Path</h3>
+          <div class="certifications">
+            <div class="certification-card tooltip">
+              <h4>GREM</h4>
+              <p>GIAC Reverse Engineering Malware</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>Advanced</span>
+              </div>
+              <span class="tooltiptext">Malware analysis and reverse engineering certification</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>CRTE</h4>
+              <p>Certified Reverse Engineering Expert</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>Expert</span>
+              </div>
+              <span class="tooltiptext">Advanced reverse engineering certification</span>
+            </div>
+            
+            <div class="certification-card tooltip">
+              <h4>OSEE</h4>
+              <p>Offensive Security Exploit Expert</p>
+              <div class="difficulty">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <span>Expert</span>
+              </div>
+              <span class="tooltiptext">Advanced exploit development and reverse engineering</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Add this section right before the closing </div> of the roadmap container -->
+<div class="practice-platforms">
+    <h2>Hands-On Practice Platforms</h2>
+    <div class="platform-cards">
+      <div class="platform-card">
+        <div class="platform-header" style="background: linear-gradient(135deg, #3a0ca3, #4361ee);">
+          <i class="fas fa-laptop-code"></i>
+          <h3>TryHackMe</h3>
+        </div>
+        <div class="platform-body">
+          <p>Beginner-friendly rooms and guided learning paths for all skill levels</p>
+          <div class="platform-features">
+            <span><i class="fas fa-check"></i> Guided Learning</span>
+            <span><i class="fas fa-check"></i> Beginner Friendly</span>
+            <span><i class="fas fa-check"></i> Free & Paid</span>
+          </div>
+          <a href="https://tryhackme.com" target="_blank" class="platform-button">Visit Platform</a>
+        </div>
+      </div>
+  
+      <div class="platform-card">
+        <div class="platform-header" style="background: linear-gradient(135deg, #d00000, #dc2f02);">
+          <i class="fas fa-bug"></i>
+          <h3>HackTheBox</h3>
+        </div>
+        <div class="platform-body">
+          <p>Real-world machines and challenges for intermediate to advanced users</p>
+          <div class="platform-features">
+            <span><i class="fas fa-check"></i> Realistic Labs</span>
+            <span><i class="fas fa-check"></i> Active Machines</span>
+            <span><i class="fas fa-check"></i> Free & Paid</span>
+          </div>
+          <a href="https://hackthebox.com" target="_blank" class="platform-button">Visit Platform</a>
+        </div>
+      </div>
+  
+      <div class="platform-card">
+        <div class="platform-header" style="background: linear-gradient(135deg, #1a936f, #114b5f);">
+          <i class="fas fa-shield-alt"></i>
+          <h3>PortSwigger</h3>
+        </div>
+        <div class="platform-body">
+          <p>Web security labs focused on Burp Suite and web application testing</p>
+          <div class="platform-features">
+            <span><i class="fas fa-check"></i> Web Focused</span>
+            <span><i class="fas fa-check"></i> Burp Suite Labs</span>
+            <span><i class="fas fa-check"></i> Free Academy</span>
+          </div>
+          <a href="https://portswigger.net/web-security" target="_blank" class="platform-button" >Visit Platform</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Specialization selection
+      const pentestingCard = document.getElementById('pentesting-card');
+      const socCard = document.getElementById('soc-card');
+      const malwareCard = document.getElementById('malware-card');
+      
+      const pentestingPath = document.getElementById('pentesting-path');
+      const socPath = document.getElementById('soc-path');
+      const malwarePath = document.getElementById('malware-path');
+
+      // Function to hide all certification paths
+      function hideAllPaths() {
+        pentestingPath.style.display = 'none';
+        socPath.style.display = 'none';
+        malwarePath.style.display = 'none';
+        
+        pentestingCard.classList.remove('active');
+        socCard.classList.remove('active');
+        malwareCard.classList.remove('active');
+      }
+
+      // Function to show a specific certification path
+      function showPath(pathElement, cardElement) {
+        hideAllPaths();
+        pathElement.style.display = 'block';
+        cardElement.classList.add('active');
+      }
+
+      // Event listeners for specialization cards
+      pentestingCard.addEventListener('click', function() {
+        showPath(pentestingPath, pentestingCard);
+      });
+
+      socCard.addEventListener('click', function() {
+        showPath(socPath, socCard);
+      });
+
+      malwareCard.addEventListener('click', function() {
+        showPath(malwarePath, malwareCard);
+      });
+
+      // Show pentesting path by default
+      showPath(pentestingPath, pentestingCard);
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const animatedSections = document.querySelectorAll('.level, .specialization-cards, .certifications');
+  
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // animate only once
+          }
+        });
+      }, {
+        threshold: 0.2
+      });
+  
+      animatedSections.forEach(section => observer.observe(section));
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add glow effect on hover for specialization cards 
+      const specCards = document.querySelectorAll('.specialization-card'); 
+  
+      specCards.forEach(card => { 
+        card.addEventListener('mouseenter', () => { 
+          const icon = card.querySelector('i');
+          if (icon) icon.classList.add('glow'); 
+        }); 
+         
+        card.addEventListener('mouseleave', () => { 
+          const icon = card.querySelector('i');
+          if (icon) icon.classList.remove('glow'); 
+        }); 
+      }); 
+    });
+  </script>
+  
+  
+</body>
+</html>

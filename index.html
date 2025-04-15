@@ -106,101 +106,7 @@
             <a href="#contact">Contact</a>
             <a href="#" onclick="window.location.href='./html/my-courses.html'" title="my-courses"><i class='bx bx-collection'></i></a>
             <!-- ///////////// -->
-            <div class="streak-counter">
-                <span class="streak-icon"><i class='bx bxs-hot' style='color:#ffffff' ></i></span>
-                <span class="streak-days" id="streakDisplay">0</span>
-              </div>
-              <script>
-                import { getAuth, onAuthStateChanged } from "firebase/auth";
-                import { getDatabase, ref, onValue, get, set, update } from "firebase/database";
                 
-                // Initialize Firebase (make sure you've done this elsewhere in your app)
-                
-                // Function to update streak when user visits
-                export function updateStreak() {
-                  const auth = getAuth();
-                  const db = getDatabase();
-                  
-                  if (auth.currentUser) {
-                    const userId = auth.currentUser.uid;
-                    const userRef = ref(db, `users/${userId}/streak`);
-                    const today = new Date().toISOString().split('T')[0];
-                    
-                    get(userRef).then((snapshot) => {
-                      if (snapshot.exists()) {
-                        const streakData = snapshot.val();
-                        const yesterday = new Date();
-                        yesterday.setDate(yesterday.getDate() - 1);
-                        const yesterdayStr = yesterday.toISOString().split('T')[0];
-                        
-                        if (streakData.lastVisit === today) {
-                          return; // Already visited today
-                        } else if (streakData.lastVisit === yesterdayStr) {
-                          update(userRef, {
-                            current: streakData.current + 1,
-                            lastVisit: today
-                          });
-                        } else {
-                          update(userRef, {
-                            current: 1,
-                            lastVisit: today
-                          });
-                        }
-                      } else {
-                        set(userRef, {
-                          current: 1,
-                          lastVisit: today
-                        });
-                      }
-                    });
-                  }
-                }
-                
-                // Function to display streak
-                export function initializeStreakCounter() {
-                  const auth = getAuth();
-                  const db = getDatabase();
-                  
-                  onAuthStateChanged(auth, (user) => {
-                    const streakDisplay = document.getElementById('streakDisplay');
-                    
-                    if (user) {
-                      const streakRef = ref(db, `users/${user.uid}/streak`);
-                      
-                      onValue(streakRef, (snapshot) => {
-                        if (snapshot.exists()) {
-                          const streak = snapshot.val().current;
-                          streakDisplay.textContent = `${streak} day${streak !== 1 ? 's' : ''}`;
-                          
-                          if (streak > 1) {
-                            streakDisplay.parentElement.classList.add('streak-pop');
-                            setTimeout(() => {
-                              streakDisplay.parentElement.classList.remove('streak-pop');
-                            }, 1000);
-                          }
-                        }
-                      });
-                    } else {
-                      streakDisplay.textContent = '0 days';
-                    }
-                  });
-                }
-                
-                // Call these when your app loads
-                initializeStreakCounter();
-                
-                // Call updateStreak() after successful login and on page load
-                // Example for login:
-                function handleLogin() {
-                  signInWithEmailAndPassword(auth, email, password)
-                    .then(() => {
-                      updateStreak(); // Update streak after successful login
-                    })
-                    .catch(error => {
-                      console.error("Login error:", error);
-                    });
-                }
-              </script>
             <!-- ///////////// -->
            <!-- Sign In Button -->
             <!-- <button id="sign-in-button" class="sign-in" onclick="window.open('./html/sign-in.html', '_blank')">Sign in</button> -->
@@ -227,42 +133,845 @@
 
 
     <!-- /////////main page////////// -->
-     <section class="main">
-        <div class="main">
-            <h1>Best Platform To Learn Programming </h1>
-            <p>Learn programming from the ground up: <span class="write"></span> <br>
-               <a href="#contact">Start now and join us on social media for updates!</a> 
-            </p>
-            <div class="main-buttons">
-                <button class="btn" onclick="window.location.href='./html/courses.html'">Courses</button>
-                <button class="btn" onclick="window.location.href='./index.html#about'">About Us</button>
-            </div>
-         </div>
-     </section>
-    <!-- /////////main page////////// -->
-     <!-- ////////this is abut////////// -->
-     <section class="about" id="about">
-        <div class="about-wrapper">
-           <div class="content">
-                <h1><span>About</span> Me</h1>
-                <p class="description">I am Muhammad, a student at the Faculty of Computer Science. I have experience in the field of web development and penetration testing, and I want to teach children and beginners the basics of programming. Join me on this exciting journey of coding!</p>
-                <button class="contact-button" >More About Me</button>
-
-               
-                <div class="social-media">
-                    <a href="#" rel="noopener" aria-label="Twitter" class="whatsapp" style="--i:1"> <i class="bx bxl-whatsapp"></i></a>
-                    <a href="#" rel="noopener" aria-label="Facebook" class="youtube" style="--i:2"> <i class="bx bxl-youtube"></i></a>
-                    <a href="#" rel="noopener" aria-label="Instagram" class="tiktok" style="--i:3"> <i class="bx bxl-tiktok"></i></a>
-                    <a href="#" rel="noopener" aria-label="LinkedIn" class="discord" style="--i:4"> <i class='bx bxl-discord-alt bx-tada' ></i></a>
-                </div>
-            </div>
-            <div class="image">
-                <img src="./photos/me.jpg" alt="Profile Photo">
-            </div>
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-bg-overlay"></div>
+      
+      <!-- Floating code elements -->
+      <div class="floating-code code-1">const igniteSkills = () => {<br>&nbsp;&nbsp;return "expertLevel";<br>}</div>
+      <div class="floating-code code-2">class Developer {<br>&nbsp;&nbsp;constructor() {<br>&nbsp;&nbsp;&nbsp;&nbsp;this.skills = "cutting-edge";<br>&nbsp;&nbsp;}<br>}</div>
+      <div class="floating-code code-3">// Transform your career<br>// with industry-proven methods</div>
+      
+      <div class="hero-content">
+        <h1 class="hero-title">Code Like the <span>Top 1%</span></h1>
+        <p class="hero-subtitle">
+          Master in-demand tech skills through our <strong>structured roadmaps</strong>, 
+          <strong>interactive courses</strong>, and <strong>hands-on practice</strong>. 
+          Build real projects with expert guidance and land your dream tech job.
+        </p>
+        
+        <div class="cta-group">
+          <a href="#" class="cta-button cta-primary">Start learning</a>
+          <a href="#" class="cta-button cta-secondary">View Courses</a>
         </div>
+        
+        <div class="stats-bar">
+          <div class="hero-stat-item">
+            <span class="stat-number" data-target="96">0</span><span>%</span>
+            <span class="stat-label">Career Success</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="stat-number" data-target="15000">0</span><span>+</span>
+            <span class="stat-label">Developers Trained</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="stat-number" data-target="4.9">0</span><span>★</span>
+            <span class="stat-label">Average Rating</span>
+          </div>
+        </div>
+      </div>
     </section>
+  
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Number counting animation
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200; // Lower is faster
+        
+        function animateCounter(counter) {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const increment = target / speed;
+          
+          if (count < target) {
+            counter.innerText = count < 10 ? (count + increment).toFixed(2) : Math.ceil(count + increment);
+            setTimeout(() => animateCounter(counter), 20);
+          } else {
+            counter.innerText = target;
+          }
+        }
+        
+        // Start counting when stats bar is visible
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              counters.forEach(counter => {
+                animateCounter(counter);
+              });
+              observer.disconnect();
+            }
+          });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.querySelector('.stats-bar'));
+  
+        // Mobile background animation
+        if (window.innerWidth <= 992) {
+          const bg = document.querySelector('.hero-bg');
+          bg.style.animation = 'pan-bg 30s linear infinite';
+        }
+      });
+    </script>
+    <!-- /////////main page////////// -->
+   
     
+
+
+
+
+
+
+
+<!-- ///// logos of company //// -->
+<!-- ///// logos of company //// -->
+<section class="partners-section">
+  <h2 class="section-title">Courses Powered by Leading Platforms</h2>
+  <p>From free tutorials to expert-led programs — everything you need, all in one place.</p>
+  <div class="marquee-container">
+      <!-- Original Group -->
+      <div class="marquee-group">
+          <div class="logo-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube">
+          </div>
+          <div class="logo-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg" alt="Udemy">
+          </div>
+          <div class="logo-item">
+              <img src="./logos/Coursera-Logo.png" alt="Coursera">
+          </div>
+          <div class="logo-item">
+              <img src="./logos/edx_logo_icon_248968.webp" alt="edX">
+          </div>
+          <div class="logo-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft">
+          </div>
+          <div class="logo-item">
+              <img src="./logos/Ec_Council_Logo.png" alt="EC-Council" > <!--style="filter: brightness(0) invert(1);"-->
+            </div>
+      </div>
+      
+      <!-- Clone Group (for seamless looping) -->
+      <div class="marquee-group clone">
+          <div class="logo-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg" alt="YouTube">
+          </div>
+          <div class="logo-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Udemy_logo.svg" alt="Udemy">
+          </div>
+          <div class="logo-item">
+              <img src="./logos/Coursera-Logo.png" alt="Coursera">
+          </div>
+          <div class="logo-item">
+              <img src="./logos/edx_logo_icon_248968.webp" alt="edX">
+          </div>
+          <div class="logo-item">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft">
+          </div>
+          <div class="logo-item">
+              <img src="./logos/Ec_Council_Logo.png" alt="EC-Council" >
+            </div>
+      </div>
+  </div>
+</section>
+
+
+<!-- ///// logos of company //// -->
+
+
+
+
+
+
+
+
+
+
+
+
      <!-- ////////this is abut////////// -->
+     <section class="next-gen-services">
+      <div class="container">
+        <div class="services-heading">
+    <h2>Learning Services</h2>
+    <p>Premium education for modern learners</p>
+  </div>
+        
+        <div class="services-grid">
+          <!-- Courses -->
+          <div class="service-card" data-service="courses">
+            <div class="icon-container">
+              <div class="icon-backdrop"></div>
+              <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+              </svg>
+            </div>
+            <h3>Interactive Courses</h3>
+            <p>Immersive learning experiences with expert instructors and hands-on projects.</p>
+            <a href="./html/courses.html" class="service-link">
+              <span>Explore Now</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+            </a>
+          </div>
+          
+          <!-- Practice -->
+          <div class="service-card" data-service="practice">
+            <div class="icon-container">
+              <div class="icon-backdrop"></div>
+              <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M14 6V4h-4v2h4zM4 8v11h16V8H4zm16-2c1.11 0 2 .89 2 2v11c0 1.11-.89 2-2 2H4c-1.11 0-2-.89-2-2l.01-11c0-1.11.88-2 1.99-2h4V4c0-1.11.89-2 2-2h4c1.11 0 2 .89 2 2v2h4z"/>
+              </svg>
+            </div>
+            <h3>Smart Practice</h3>
+            <p>AI-powered exercises with real-time feedback and adaptive difficulty.</p>
+            <a href="#practice-section" class="service-link">
+              <span>Start Practicing</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+            </a>
+          </div>
+          
+          <!-- Roadmaps -->
+          <div class="service-card" data-service="roadmaps">
+            <div class="icon-container">
+              <div class="icon-backdrop"></div>
+              <!-- <svg class="service-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+              </svg> -->
+              <i class="fas fa-map service-icon"></i>
+            </div>
+            <h3>Dynamic Roadmaps</h3>
+            <p>Personalized learning paths that adapt to your progress and goals.</p>
+            <a href="./index.html#roadmaps-section" class="service-link">
+              <span>View Paths</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+     <!-- ////////this is abut////////// -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ///////////////// roadmaps ////////////////// -->
+<!-- ///////////////// roadmaps ////////////////// -->
+
+<section class="roadmaps-sectoin" id="roadmaps-section">
+  <div class="slider-container">
+      <div class="slider">
+          <div class="progress-bar"></div>
+          <div class="slides">
+              <div class="slide">
+                  <a href="./html/cyber-roadmap.html" target="_blank">
+                    <img src="./photos/login.jpg" alt="Cybersecurity Roadmap">
+                  <div class="slide-content">
+                      <h2 class="slide-title">Cybersecurity Roadmap</h2>
+                      <p class="slide-description">Master the art of digital defense with our comprehensive cybersecurity learning path. From network security to ethical hacking, we guide you through every essential skill.</p>
+                      <div class="slide-stats">
+                          <div class="stat-item">
+                              <i class="fas fa-clock stat-icon"></i>
+                              <span>6-12 Months</span>
+                          </div>
+                          <div class="stat-item">
+                              <i class="fas fa-layer-group stat-icon"></i>
+                              <span>5 Skill Tiers</span>
+                          </div>
+                          <div class="stat-item">
+                              <i class="fas fa-briefcase stat-icon"></i>
+                              <span>8 Career Paths</span>
+                          </div>
+                      </div>
+                  </div>
+                  </a>
+              </div>
+              <div class="slide">
+                 <a href="./html/mobile-dev-roadmap.html" target="_blank">
+                  <img src="./photos/mobile2.avif" alt="Mobile Development Roadmap">
+                  <div class="slide-content">
+                      <h2 class="slide-title">Mobile Development Roadmap</h2>
+                      <p class="slide-description">Build cutting-edge mobile applications for iOS and Android. Learn Flutter, React Native, or native development to create performant, beautiful mobile experiences.</p>
+                      <div class="slide-stats">
+                          <div class="stat-item">
+                              <i class="fas fa-clock stat-icon"></i>
+                              <span>4-9 Months</span>
+                          </div>
+                          <div class="stat-item">
+                              <i class="fas fa-layer-group stat-icon"></i>
+                              <span>4 Skill Tiers</span>
+                          </div>
+                          <div class="stat-item">
+                              <i class="fas fa-briefcase stat-icon"></i>
+                              <span>6 Career Options</span>
+                          </div>
+                      </div>
+                  </div>
+                 </a>
+              </div>
+              <div class="slide">
+                  <a href="./html/ai-roadmap.html" target="_blank">
+                    <img src="./photos/ai.jpg" alt="AI/ML Roadmap">
+                  <div class="slide-content">
+                      <h2 class="slide-title">AI & Machine Learning Roadmap</h2>
+                      <p class="slide-description">Dive into the future of technology with our AI/ML learning path. From fundamentals to advanced neural networks, unlock the potential of intelligent systems.</p>
+                      <div class="slide-stats">
+                          <div class="stat-item">
+                              <i class="fas fa-clock stat-icon"></i>
+                              <span>8-14 Months</span>
+                          </div>
+                          <div class="stat-item">
+                              <i class="fas fa-layer-group stat-icon"></i>
+                              <span>6 Skill Tiers</span>
+                          </div>
+                          <div class="stat-item">
+                              <i class="fas fa-briefcase stat-icon"></i>
+                              <span>10+ Specializations</span>
+                          </div>
+                      </div>
+                  </div>
+                  </a>
+              </div>
+          </div>
+          
+          <div class="slider-controls">
+              <button class="slider-control prev" onclick="prevSlide()">&#10094;</button>
+              <button class="slider-control next" onclick="nextSlide()">&#10095;</button>
+          </div>
+          
+          <div class="roadmaps-nav">
+              <button class="active" onclick="goToSlide(0)" aria-label="Go to Cybersecurity Roadmap"></button>
+              <button onclick="goToSlide(1)" aria-label="Go to Mobile Development Roadmap"></button>
+              <button onclick="goToSlide(2)" aria-label="Go to AI/ML Roadmap"></button>
+          </div>
+      </div>
+  </div>
+</section>
+
+<script>
+  let currentIndex = 0;
+  let autoPlayInterval;
+  let isHovering = false;
+  const slides = document.querySelector('.slides');
+  const totalSlides = document.querySelectorAll('.slide').length;
+  const navButtons = document.querySelectorAll('.roadmaps-nav button');
+  const progressBar = document.querySelector('.progress-bar');
+  let progress = 0;
+  const slideDuration = 5000; // 5 seconds per slide
+  
+  // Initialize the slider
+  function initSlider() {
+      updateSlide();
+      startAutoPlay();
+      setupEventListeners();
+  }
+  
+  // Update slide position and active nav button
+  function updateSlide() {
+      slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+      navButtons.forEach((button, index) => {
+          button.classList.toggle('active', index === currentIndex);
+      });
+      resetProgress();
+  }
+  
+  // Go to specific slide
+  function goToSlide(index) {
+      currentIndex = index;
+      updateSlide();
+  }
+  
+  // Next slide
+  function nextSlide() {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateSlide();
+  }
+  
+  // Previous slide
+  function prevSlide() {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateSlide();
+  }
+  
+  // Auto-play functionality
+  function startAutoPlay() {
+      autoPlayInterval = setInterval(() => {
+          if (!isHovering) {
+              nextSlide();
+          }
+      }, slideDuration);
+  }
+  
+  // Reset progress bar
+  function resetProgress() {
+      progress = 0;
+      progressBar.style.width = '0%';
+  }
+  
+  // Update progress bar
+  function updateProgress() {
+      if (!isHovering) {
+          progress += 10 / (slideDuration / 100);
+          progressBar.style.width = `${progress}%`;
+          
+          if (progress >= 100) {
+              resetProgress();
+          }
+      }
+  }
+  
+  // Event listeners setup
+  function setupEventListeners() {
+      // Pause on hover
+      document.querySelector('.slider').addEventListener('mouseenter', () => {
+          isHovering = true;
+          clearInterval(autoPlayInterval);
+      });
+      
+      // Resume on mouse leave
+      document.querySelector('.slider').addEventListener('mouseleave', () => {
+          isHovering = false;
+          startAutoPlay();
+          resetProgress();
+      });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowRight') {
+              nextSlide();
+          } else if (e.key === 'ArrowLeft') {
+              prevSlide();
+          }
+      });
+      
+      // Touch events for mobile
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      document.querySelector('.slider').addEventListener('touchstart', (e) => {
+          touchStartX = e.changedTouches[0].screenX;
+          clearInterval(autoPlayInterval);
+      });
+      
+      document.querySelector('.slider').addEventListener('touchend', (e) => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+          startAutoPlay();
+      });
+      
+      function handleSwipe() {
+          const threshold = 50;
+          if (touchEndX < touchStartX - threshold) {
+              nextSlide();
+          } else if (touchEndX > touchStartX + threshold) {
+              prevSlide();
+          }
+      }
+  }
+  
+  // Start progress bar updates
+  setInterval(updateProgress, 10);
+  
+  // Initialize the slider when DOM is loaded
+  document.addEventListener('DOMContentLoaded', initSlider);
+</script>
+
+<!-- ///////////////// roadmaps ////////////////// -->
+<!-- ///////////////// roadmaps ////////////////// -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- /////////////////////top 3 followers ///////////////////// -->
+<!-- /////////////////////top 3 followers ///////////////////// -->
+<section class="pra-sec" id="practice-section">
+  <div class="practice-container">
+  <div class="practice-header">
+    <h1>Practice Challenges</h1>
+    <p>Hover over any challenge card to view details and start practicing</p>
+  </div>
+  
+  <div class="container">
+    <div class="card">
+      <img class="background" src="./photos/scratch-practise.webp" alt="Python code">
+      <div class="card-content">
+        <div class="profile-image">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 2 7l10 5 10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3 class="title">Scratch</h3>
+        
+        <div class="practice-details">
+          <div class="difficulty">
+            <span class="difficulty-icon difficulty-beginner"></span>
+            <span>Beginner Level</span>
+          </div>
+          <p>Write a program that prints numbers from 1 to 100, replacing multiples of 3 with "Fizz", multiples of 5 with "Buzz", and both with "FizzBuzz". This classic problem tests your understanding of loops and conditional statements in Python.</p>
+          
+          <div class="tags">
+            <span class="tag">Loops</span>
+            <span class="tag">Conditionals</span>
+            <span class="tag">Basics</span>
+            <span class="tag">Beginner</span>
+          </div>
+          
+          <div class="stats">
+            <div class="stat-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>15 min</span>
+            </div>
+            <div class="stat-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+              <span>85% solved</span>
+            </div>
+          </div>
+          
+          <div class="progress-container">
+            <div class="pr-progress-bar" style="width: 85%"></div>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary">Start Challenge</button>
+            
+          </div>
+        </div>
+      </div>
+      <div class="backdrop"></div>
+    </div>
+
+    <!-- Additional cards (4 more) would be here with similar structure -->
+    <!-- Card 2 -->
+    <div class="card">
+      <img class="background" src="./photos/python-practise.jpg" alt="Code editor">
+      <div class="card-content">
+        <div class="profile-image">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <h3 class="title">Python</h3>
+        
+        <div class="practice-details">
+          <div class="difficulty">
+            <span class="difficulty-icon difficulty-intermediate"></span>
+            <span>Intermediate Level</span>
+          </div>
+          <p>Create a function that checks if a given string is a palindrome (reads the same backward as forward). Handle cases with spaces and punctuation by ignoring them. The solution should demonstrate your string manipulation skills and algorithm thinking.</p>
+          
+          <div class="tags">
+            <span class="tag">Strings</span>
+            <span class="tag">Algorithms</span>
+            <span class="tag">Functions</span>
+            <span class="tag">Intermediate</span>
+          </div>
+          
+          <div class="stats">
+            <div class="stat-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>25 min</span>
+            </div>
+            <div class="stat-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+              <span>72% solved</span>
+            </div>
+          </div>
+          
+          <div class="progress-container">
+            <div class="pr-progress-bar" style="width: 72%"></div>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary">Start Challenge</button>
+            
+          </div>
+        </div>
+      </div>
+      <div class="backdrop"></div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <img class="background" src="./photos/c++.jpg" alt="JavaScript code">
+      <div class="card-content">
+        <div class="profile-image">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 2 7l10 5 10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3 class="title">C++</h3>
+        
+        <div class="practice-details">
+          <div class="difficulty">
+            <span class="difficulty-icon difficulty-intermediate"></span>
+            <span>Intermediate Level</span>
+          </div>
+          <p>Implement the Sieve of Eratosthenes algorithm to generate all prime numbers up to a given limit. Optimize your solution for performance and explain your approach. This challenge tests your understanding of algorithms and optimization techniques.</p>
+          
+          <div class="tags">
+            <span class="tag">Algorithms</span>
+            <span class="tag">Math</span>
+            <span class="tag">Optimization</span>
+            <span class="tag">Intermediate</span>
+          </div>
+          
+          <div class="stats">
+            <div class="stat-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>35 min</span>
+            </div>
+            <div class="stat-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+              <span>65% solved</span>
+            </div>
+          </div>
+          
+          <div class="progress-container">
+            <div class="pr-progress-bar" style="width: 65%"></div>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary">Start Challenge</button>
+            
+          </div>
+        </div>
+      </div>
+      <div class="backdrop"></div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <img class="background" src="./photos/linux.webp" alt="Web development">
+      <div class="card-content">
+        <div class="profile-image">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+        </div>
+        <h3 class="title">Linux</h3>
+        
+        <div class="practice-details">
+          <div class="difficulty">
+            <span class="difficulty-icon difficulty-advanced"></span>
+            <span>Advanced Level</span>
+          </div>
+          <p>Create a program that analyzes text files and provides comprehensive statistics including word count, character count, most frequent words, average word length, and reading time. Handle large files efficiently and provide clear output formatting.</p>
+          
+          <div class="tags">
+            <span class="tag">File I/O</span>
+            <span class="tag">Data Processing</span>
+            <span class="tag">Collections</span>
+            <span class="tag">Advanced</span>
+          </div>
+          
+          <div class="stats">
+            <div class="stat-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>45 min</span>
+            </div>
+            <div class="stat-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+              <span>58% solved</span>
+            </div>
+          </div>
+          
+          <div class="progress-container">
+            <div class="pr-progress-bar" style="width: 58%"></div>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary">Start Challenge</button>
+            
+          </div>
+        </div>
+      </div>
+      <div class="backdrop"></div>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <img class="background" src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Algorithm visualization">
+      <div class="card-content">
+        <div class="profile-image">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 2 7l10 5 10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3 class="title">Banking System OOP</h3>
+        
+        <div class="practice-details">
+          <div class="difficulty">
+            <span class="difficulty-icon difficulty-advanced"></span>
+            <span>Advanced Level</span>
+          </div>
+          <p>Design and implement a complete banking system using object-oriented principles. Include classes for Account, Customer, Transaction, and Bank. Implement features like account creation, deposits, withdrawals, transfers, and transaction history. Ensure proper error handling and data validation.</p>
+          
+          <div class="tags">
+            <span class="tag">OOP</span>
+            <span class="tag">Classes</span>
+            <span class="tag">Inheritance</span>
+            <span class="tag">Advanced</span>
+          </div>
+          
+          <div class="stats">
+            <div class="stat-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <span>60 min</span>
+            </div>
+            <div class="stat-item">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+              <span>42% solved</span>
+            </div>
+          </div>
+          
+          <div class="progress-container">
+            <div class="pr-progress-bar" style="width: 42%"></div>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn btn-primary">Start Challenge</button>
+            
+          </div>
+        </div>
+      </div>
+      <div class="backdrop"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+// Animate progress bars on load
+setTimeout(() => {
+document.querySelectorAll('.pr-progress-bar').forEach(bar => {
+  const targetWidth = bar.style.width;
+  bar.style.width = '0';
+  setTimeout(() => {
+    bar.style.width = targetWidth;
+  }, 100);
+});
+}, 500);
+
+// Start challenge button handler
+// document.querySelectorAll('.btn-primary').forEach(button => {
+//  button.addEventListener('click', function() {
+//    const card = this.closest('.card');
+//    const challengeTitle = card.querySelector('.title').textContent;
+//    alert(`Starting challenge: ${challengeTitle}\n\nThis would redirect to the challenge page in a real application.`);
+//   });
+// });
+
+
+// Prevent card content from closing card when clicked
+document.querySelectorAll('.card-content, .practice-details, .action-buttons').forEach(element => {
+element.addEventListener('click', function(e) {
+  e.stopPropagation();
+});
+});
+});
+</script>
+</section>
+<!-- /////////////////////top 3 followers ///////////////////// -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -294,7 +1003,7 @@
                     </div>
                 </div>
                 <blockquote>
-                    اسطورة تستاهل اكثر من كده 💗✨🇵🇸
+                  From zero to job offer in 3 months! This roadmap is magic ✨
                 </blockquote>
             </article>
             <article class="testimonial-card">
@@ -307,20 +1016,20 @@
                     </div>
                 </div>
                 <blockquote>
-                    @0x_DaY شكراً لك أفضل مبرمج
+                  I doubled my salary after completing the cybersecurity path 💸 Life-changing!
                 </blockquote>
             </article>
-            <article class="testimonial-card" id="golden">
+            <article class="testimonial-card" id="ngolden">
                 <div class="card-header">
                     <img src="./followers_photos/5.png" alt="photo" class="avatar">
                     <div class="user-details">
                         <h3>@Mrchocolate-w6d  </h3>
-                        <span class="badge">Super_Follower</span>
+                        <span class="badge">Follower</span>
                         <div class="rating">★★★★★</div>
                     </div>
                 </div>
                 <blockquote>
-                    😮وات كيف انا تأخرت❤❤استمررر مبروك 200 مشترك مقدماً🎉🎉 أن شاء الله تحصل الف مشترك شرح رهييييب❤❤❤
+                  Finally! A learning platform that doesn't waste my time 🚀
                 </blockquote>
             </article>
             <article class="testimonial-card">
@@ -333,7 +1042,7 @@
                     </div>
                 </div>
                 <blockquote>
-                    ❤️❤️‍🔥اعحبني مرا كثير
+                  The mobile dev course got me my first freelance gig at $75/hr! 🤑
                 </blockquote>
             </article>
             <article class="testimonial-card">
@@ -346,7 +1055,7 @@
                     </div>
                 </div>
                 <blockquote>
-                    شكرا لك🙏♥️♥️♥️♥️♥️😍😍😍😍🥰🥰🥰😍😍🥰🥰😍😍🥰😍😍🥰😍😍😍🥰🥰♥️♥️♥️♥️♥️♥️♥️
+                  10/10 would recommend to anyone serious about tech careers 🏆
                 </blockquote>
             </article>
             <article class="testimonial-card">
@@ -359,7 +1068,7 @@
                     </div>
                 </div>
                 <blockquote>
-                    اسطورة الفيديو مره جامد 🇵🇸✨✨✨
+                  Best $ I ever spent on education - paid for itself in 2 weeks 💯
                 </blockquote>
             </article>
             
@@ -374,20 +1083,20 @@
                   </div>
               </div>
               <blockquote>
-                ما شاء الله عليك مبدع والصورة المصغرة رهيبة كثير ..استمر🎉❤
+                My team now requires all junior devs to take these courses 👏
               </blockquote>
           </article>
-            <article class="testimonial-card" id="golden">
+            <article class="testimonial-card" id="ngolden">
               <div class="card-header">
                   <img src="./followers_photos/5.png" alt="photo" class="avatar">
                   <div class="user-details">
                       <h3>@Mrchocolate-w6d </h3>
-                      <span class="badge">Super_Follower</span>
+                      <span class="badge">Follower</span>
                       <div class="rating">★★★★★</div>
                   </div>
               </div>
               <blockquote>
-                متحمسسسسس❤❤ مع شرح هذا الشخص الرهييييبب❤❤❤
+                Wish I found this before wasting $15k on bootcamps 😅
               </blockquote>
           </article>
             <article class="testimonial-card">
@@ -400,7 +1109,7 @@
                   </div>
               </div>
               <blockquote>
-                @0x_DaY بس انت ممتاز الصراحة استمر
+                The AI roadmap is so good it feels illegal 🤯
               </blockquote>
           </article>
             <article class="testimonial-card">
@@ -413,7 +1122,7 @@
                   </div>
               </div>
               <blockquote>
-                إستمر يا أسطورة
+                Got promoted after finishing just 60% of the cybersecurity path 📈
               </blockquote>
           </article>
             <article class="testimonial-card">
@@ -426,7 +1135,7 @@
                   </div>
               </div>
               <blockquote>
-                beast youtuber
+                Clear, concise, career-changing. Stop looking elsewhere 👌
               </blockquote>
           </article>
             <article class="testimonial-card">
@@ -439,7 +1148,7 @@
                   </div>
               </div>
               <blockquote>
-                استمر
+                My productivity increased 5x after these courses ⚡
               </blockquote>
           </article>
             <article class="testimonial-card">
@@ -452,7 +1161,7 @@
                   </div>
               </div>
               <blockquote>
-                شكرااااااااااااااااا❤❤❤❤❤❤❤
+                Even my CS professor recommends this platform now 🎓
               </blockquote>
           </article>
           <article class="testimonial-card">
@@ -465,7 +1174,7 @@
                 </div>
             </div>
             <blockquote>
-              شكرا على الشرح👍🏻
+              The only learning resource I'll ever need. Period. 🏁
             </blockquote>
             
         </article>
@@ -479,7 +1188,7 @@
               </div>
           </div>
           <blockquote>
-            شكرا جزيلا لك
+            The mobile dev course got me my first freelance gig at $75/hr! 🤑
           </blockquote>
       </article>
       <article class="testimonial-card">
@@ -492,7 +1201,7 @@
             </div>
         </div>
         <blockquote>
-          رائع استمر بجد ممتاز        
+          My team now requires all junior devs to take these courses 👏      
         </blockquote>
         
         </div>
@@ -513,165 +1222,6 @@
 <!-- /////////////////// what people say ///////////// -->
 <!-- /////////////////// what people say ///////////// -->
 
-
-
-
-
-
-
-<!-- /////////////////////top 3 followers ///////////////////// -->
-<!-- /////////////////////top 3 followers ///////////////////// -->
-
-<div class="competition">
-    <section class="countdown-section">
-        <div class="countdown-wrapper">
-          <div class="countdown-header">
-            <h2>Coming Competition</h2>
-            <p>Get ready to join the challenge!</p>
-          </div>
-    
-          <div class="countdown-timer" id="countdown">
-            <div class="time-box">
-              <span id="days"></span>
-              <span>Days</span>
-            </div>
-            <div class="time-box">
-              <span id="hours"></span>
-              <span>Hours</span>
-            </div>
-            <div class="time-box">
-              <span id="minutes"></span>
-              <span>Minutes</span>
-            </div>
-            <div class="time-box">
-              <span id="seconds"></span>
-              <span>Seconds</span>
-            </div>
-          </div>
-        </div>
-      </section>
-    
-</div>
-  <script>
-    // Set the date we're counting down to
-    const countdownDate = new Date("Mars 30, 2025 00:00:00").getTime();
-
-    // Update the countdown every 1 second
-    const countdownFunction = setInterval(function() {
-      // Get the current date and time
-      const now = new Date().getTime();
-
-      // Find the distance between now and the countdown date
-      const distance = countdownDate - now;
-
-      // Calculate days, hours, minutes, and seconds
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Display the result
-      document.getElementById("days").innerHTML = days;
-      document.getElementById("hours").innerHTML = hours;
-      document.getElementById("minutes").innerHTML = minutes;
-      document.getElementById("seconds").innerHTML = seconds;
-
-      // If the countdown is finished, display a message
-      if (distance < 0) {
-        clearInterval(countdownFunction);
-        document.getElementById("countdown").innerHTML = "The competition has started!";
-      }
-    }, 1000);
-  </script>
-
-<!-- /////////////////////top 3 followers ///////////////////// -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- ///////////////// roadmaps ////////////////// -->
-<!-- ///////////////// roadmaps ////////////////// -->
-
-<section class="roadmaps" id="roadmaps-section">
-    
-<div class="slider">
-  <div class="slides">
-      <div class="slide">
-          <img src="./photos/web-roadmap.jpg" alt="Slide 1" loading="lazy" onclick="window.open('https://www.google.com', '_blank');">
-          <div class="text">web-roadmap Roadmap</div>
-      </div>
-      <div class="slide">
-          <img src="./photos/web-roadmap.jpg" alt="Slide 2" loading="lazy">
-          <div class="text">Explore Slide 2</div>
-      </div>
-      <div class="slide">
-          <img src="./photos/course1.png" alt="Slide 3" loading="lazy">
-          <div class="text">Discover Slide 3</div>
-      </div>
-  </div>
-  <div class="roadmaps-nav">
-      <button class="active" onclick="goToSlide(0)" title="slide-button"></button>
-      <button onclick="goToSlide(1)" title="slide-button"></button>
-      <button onclick="goToSlide(2)" title="slide-button"></button>
-  </div>
-</div>
-<script>
-  let index = 0;
-  const slides = document.querySelector('.slides');
-  const totalSlides = document.querySelectorAll('.slides .slide').length;
-  const navButtons = document.querySelectorAll('.roadmaps-nav button');
-
-  const nextSlide = () => {
-      index = (index + 1) % totalSlides;
-      updateSlide();
-  }
-
-  const prevSlide = () => {
-      index = (index - 1 + totalSlides) % totalSlides;
-      updateSlide();
-  }
-
-  const goToSlide = (slideIndex) => {
-      index = slideIndex;
-      updateSlide();
-  }
-
-  const updateSlide = () => {
-      slides.style.transform = `translateX(-${index * 100}%)`;
-      navButtons.forEach((button, i) => {
-          button.classList.toggle('active', i === index);
-      });
-  }
-
-  setInterval(nextSlide, 3000); // Auto-play interval
-</script>
-
-</section>
-
-<!-- ///////////////// roadmaps ////////////////// -->
-<!-- ///////////////// roadmaps ////////////////// -->
 
 
 
@@ -973,11 +1523,165 @@
 
 
 
+<!-- //////// contact buton/// -->
+<!-- //////// contact buton/// -->
+<!-- Floating Button with Icon -->
+<button class="contact-btn" onclick="toggleForm()" title="Contact Us">
+  <i class="fas fa-envelope"></i>
+</button>
 
+<!-- Contact Form -->
+<div class="contact-form" id="contactForm">
+  <div class="form-content" id="formContent">
+      <div class="form-header">
+          <h3 class="form-title">Get in Touch</h3>
+          <button class="close-btn" onclick="toggleForm()">&times;</button>
+      </div>
+      <input type="text" id="name" placeholder="Your Name*" required>
+      <div class="error-message" id="nameError">Please enter your name</div>
+      
+      <input type="email" id="email" placeholder="Your Email*" required>
+      <div class="error-message" id="emailError">Please enter a valid email</div>
+      
+      <textarea id="message" rows="4" placeholder="Your Message*" required></textarea>
+      <div class="error-message" id="messageError">Please enter your message</div>
+      
+      <button class="submit-btn" onclick="validateForm()">Send Message</button>
+      <div class="form-footer">
+          We typically respond within 1 business day
+      </div>
+  </div>
+  
+  <div class="success-message" id="successMessage">
+      <i class="fas fa-check-circle"></i>
+      <h3>Thank You!</h3>
+      <p>Your message has been sent successfully. We'll contact you soon.</p>
+      <button class="submit-btn" onclick="toggleForm()" style="margin-top: 15px; width: auto; padding: 10px 20px;">
+          Close
+      </button>
+  </div>
+</div>
+
+<script>
+  function toggleForm() {
+      var form = document.getElementById("contactForm");
+      var formContent = document.getElementById("formContent");
+      var successMessage = document.getElementById("successMessage");
+      
+      if (form.classList.contains("show")) {
+          form.classList.remove("show");
+          setTimeout(() => {
+              form.style.display = "none";
+              // Reset form and show form content if success was shown
+              formContent.style.display = "block";
+              successMessage.style.display = "none";
+              // Clear any error messages
+              clearErrors();
+          }, 300);
+      } else {
+          form.style.display = "block";
+          setTimeout(() => form.classList.add("show"), 10);
+      }
+  }
+
+  function clearErrors() {
+      document.getElementById("nameError").style.display = "none";
+      document.getElementById("emailError").style.display = "none";
+      document.getElementById("messageError").style.display = "none";
+  }
+
+  function validateForm() {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var message = document.getElementById("message").value;
+      var isValid = true;
+      
+      clearErrors();
+      
+      if (!name) {
+          document.getElementById("nameError").style.display = "block";
+          isValid = false;
+      }
+      
+      if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+          document.getElementById("emailError").style.display = "block";
+          isValid = false;
+      }
+      
+      if (!message) {
+          document.getElementById("messageError").style.display = "block";
+          isValid = false;
+      }
+      
+      if (isValid) {
+          sendEmail();
+      }
+  }
+
+  function sendEmail() {
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var message = document.getElementById("message").value;
+      var formContent = document.getElementById("formContent");
+      var successMessage = document.getElementById("successMessage");
+
+      // Show success message
+      formContent.style.display = "none";
+      successMessage.style.display = "block";
+      
+      // Gmail URL scheme
+      var gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=quran9686@gmail.com&su=${encodeURIComponent("Contact from " + name)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\n" + message)}`;
+      window.open(gmailUrl, "_blank");
+      
+      // Reset form after showing success
+      setTimeout(() => {
+          document.getElementById("name").value = "";
+          document.getElementById("email").value = "";
+          document.getElementById("message").value = "";
+      }, 300);
+  }
+  
+  // Close form when clicking outside
+  document.addEventListener('click', function(event) {
+      var form = document.getElementById("contactForm");
+      var btn = document.querySelector(".contact-btn");
+      
+      if (form.classList.contains("show") && 
+          !form.contains(event.target) && 
+          event.target !== btn) {
+          toggleForm();
+      }
+  });
+</script>
+<!-- //////// contact buton/// -->
 
 
 
     <button onclick="topFunction()" id="myBtn" title="Go to top"><i class='bx bx-chevrons-up'></i></button>
+
+    <script>
+        // Get the button
+        let mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "flex";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <!-- <script src="./js/firebase-config.js"></script> -->
      <script src="./js/script.js"></script>
