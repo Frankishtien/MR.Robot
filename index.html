@@ -89,7 +89,7 @@
         <div class="menu" id="menu">
             <a href="#" onclick="window.location.href='./index.html'">Home</a>
             <a href="#about" onclick="window.location.href='./index.html#about'">About</a>
-            <a href="#" onclick="window.location.href='./html/courses.html'">Courses</a>
+            <a href="#" onclick="window.location.href='./html/new_courses.html'">Courses</a>
             <!-- Dropdown for 'Practices' -->
             <div class="dropdown">
                 <button class="dropbtn">Practices 
@@ -97,10 +97,10 @@
                 </button>
                 <div class="dropdown-content">
                     <a href="#" onclick="window.location.href='./html/scratch-practice.html'">Scratch</a>
-                    <a href="#" onclick="window.location.href='./html/web-practice.html'">Web</a>
-                    <a href="#" onclick="window.location.href='./html/coming-soon.html'">C++</a>
-                    <a href="#" onclick="window.location.href='./html/coming-soon.html'">Python</a>
-                    <a href="#" onclick="window.location.href='./html/security-practice.html'">Security</a>
+                    <a href="#" onclick="window.location.href='./html/c++_challenges.html'">C++</a>
+                    <a href="#" onclick="window.location.href='./html/python_challenges.html'">Python</a>
+                    <a href="#" onclick="window.location.href='./html/linux_challenges.html'">Linux</a>
+                    <a href="#" onclick="window.location.href='./html/html_challenges.html'">HTML</a>
                 </div>
             </div> 
             <a href="#contact">Contact</a>
@@ -681,7 +681,7 @@
           </div>
           
           <div class="action-buttons">
-            <button class="btn btn-primary">Start Challenge</button>
+            <button class="btn btn-primary" onclick="window.location.href='./html/scratch-practice.html'">Start Challenge</button>
             
           </div>
         </div>
@@ -736,7 +736,7 @@
           </div>
           
           <div class="action-buttons">
-            <button class="btn btn-primary">Start Challenge</button>
+            <button class="btn btn-primary" onclick="window.location.href='./html/python_challenges.html'">Start Challenge</button>
             
           </div>
         </div>
@@ -792,7 +792,7 @@
           </div>
           
           <div class="action-buttons">
-            <button class="btn btn-primary">Start Challenge</button>
+            <button class="btn btn-primary" onclick="window.location.href='./html/c++_challenges.html'">Start Challenge</button>
             
           </div>
         </div>
@@ -846,7 +846,7 @@
           </div>
           
           <div class="action-buttons">
-            <button class="btn btn-primary">Start Challenge</button>
+            <button class="btn btn-primary" onclick="window.location.href='./html/linux_challenges.html'">Start Challenge</button>
             
           </div>
         </div>
@@ -865,7 +865,7 @@
             <path d="M2 12l10 5 10-5"/>
           </svg>
         </div>
-        <h3 class="title">Banking System OOP</h3>
+        <h3 class="title">HTML</h3>
         
         <div class="practice-details">
           <div class="difficulty">
@@ -902,7 +902,7 @@
           </div>
           
           <div class="action-buttons">
-            <button class="btn btn-primary">Start Challenge</button>
+            <button class="btn btn-primary" onclick="window.location.href='./html/html_challenges.html'">Start Challenge</button>
             
           </div>
         </div>
@@ -1378,7 +1378,7 @@ element.addEventListener('click', function(e) {
       signOut(auth)
           .then(() => {
               console.log("User signed out");
-              window.location.href = '../index.html'; // Redirect to home page after logout
+              window.location.href = './index.html'; // Redirect to home page after logout
           })
           .catch((error) => {
               console.error("Error signing out:", error.message);
@@ -1478,22 +1478,26 @@ element.addEventListener('click', function(e) {
       </nav>
       <h2>Practice</h2>
       <nav class="buttons">
-          <button>
+          <button onclick="window.location.href='./html/scratch-practice.html'">
               <i class="fas fa-code"></i>
               <span>Scratch</span>
           </button>
-          <button>
+          <button onclick="window.location.href='./html/python_challenges.html'">
               <i class="fab fa-python"></i>
               <span>Python</span>
           </button>
-          <button>
+          <button onclick="window.location.href='./html/c++_challenges.html'">
               <i class='bx bxl-c-plus-plus'></i>
               <span>C++</span>
           </button>
-          <button>
+          <button onclick="window.location.href='./html/linux_challenges.html'">
               <i class="fab fa-linux"></i>
               <span>Linux</span>
           </button>
+          <button onclick="window.location.href='./html/html_challenges.html'">
+            <i class="fa-solid fa-code"></i>
+            <span>HTML</span>
+        </button>
       </nav>
       <h2>Account</h2>
       <nav class="buttons">

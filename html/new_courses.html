@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Coding Courses</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        :root {
+            --primary-color: #e63622;
+            --primary-dark: #bc0000;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --border-color: #333;
+            --accent-color: #4285f4;
+            --success-color: #34a853;
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        
+        /* Page Header */
+        .page-header {
+            padding: 2rem 2rem 1rem;
+            margin-left: 320px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .page-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary-color), #f55);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        /* Floating Filter Button */
+        .floating-filter {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            z-index: 1001;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .floating-filter:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .floating-filter i {
+            font-size: 1.8em;
+        }
+        
+        /* Filter Bar */
+        .filter-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 300px;
+            background: var(--dark-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 1.5rem;
+            overflow-y: auto;
+            z-index: 1000;
+            transform: translateX(-100%);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        .filter-bar.open {
+            transform: translateX(0);
+        }
+        
+        .filter-bar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-bar h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .filter-bar h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            height: 70%;
+            width: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        .filter-section {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+        
+        .filter-section:last-child {
+            border-bottom: none;
+        }
+        
+        .filter-section h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .filter-section h3 i {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        .filter-category {
+            margin-bottom: 1rem;
+        }
+        
+        .filter-category-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+        
+        .filter-category-title:hover {
+            color: var(--primary-color);
+        }
+        
+        .filter-category-title i {
+            transition: transform 0.3s ease;
+        }
+        
+        .filter-category-title.active i {
+            transform: rotate(90deg);
+        }
+        
+        .filter-category-content {
+            display: none;
+            padding-left: 1rem;
+            margin-top: 0.5rem;
+            border-left: 2px solid var(--border-color);
+        }
+        
+        .filter-category-content.show {
+            display: block;
+        }
+        
+        .filter-item {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .filter-item label {
+            cursor: pointer;
+            font-weight: 400;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            margin-left: 0.75rem;
+            transition: var(--transition);
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .filter-item:hover label {
+            color: var(--primary-color);
+        }
+        
+        .filter-item-count {
+            margin-left: auto;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+        }
+        
+        /* Custom Checkbox */
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            background-color: transparent;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        input[type="checkbox"]:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        input[type="checkbox"]:checked::before {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        /* Filter Bar Scrollbar */
+        .filter-bar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .filter-bar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+        
+        .filter-bar::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        .filter-bar::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Close Button */
+        .close-filter {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+        
+        .close-filter:hover {
+            opacity: 1;
+            color: var(--primary-color);
+        }
+        
+        /* Reset Button */
+        .reset-filters {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: none;
+            border-radius: var(--border-radius);
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        .reset-filters:hover {
+            background: rgba(230, 54, 34, 0.2);
+            color: var(--primary-color);
+        }
+        
+        /* Courses Container */
+        #courses-container {
+            margin-left: 320px;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        /* Professional Course Cards */
+        .course-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+            border-color: rgba(230, 54, 34, 0.3);
+        }
+        
+        .course-card-img {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .course-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .course-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .course-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .course-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .course-info h3 {
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+        
+        .course-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .course-meta span {
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+        }
+        
+        .course-meta i {
+            margin-right: 0.3rem;
+            font-size: 1rem;
+        }
+        
+        .price-container {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+        }
+        
+        .price {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+        }
+        
+        .price .sale {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .add-to-cart {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .add-to-cart:hover {
+            background: var(--primary-dark);
+        }
+        
+        .view-course {
+            background: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .view-course:hover {
+            background: rgba(230, 54, 34, 0.1);
+        }
+        
+        /* No Courses Message */
+        .no-courses {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+            display: none;
+        }
+        
+        .no-courses i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            opacity: 0.7;
+        }
+        
+        .no-courses h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            #courses-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header,
+            #courses-container {
+                margin-left: 0;
+            }
+            
+            .floating-filter {
+                display: flex;
+            }
+            
+            .filter-bar {
+                width: 280px;
+                box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            #courses-container {
+                padding: 1.5rem 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .filter-bar {
+                width: 85%;
+            }
+            
+            .page-header {
+                padding: 1.5rem 1rem 1rem;
+            }
+            
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            #courses-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Filter Button (Visible on Small Screens) -->
+    <button class="floating-filter" aria-label="Open filter menu">
+        <i class='bx bx-filter-alt'></i>
+    </button>
+    
+    <!-- Filter Bar -->
+    <div class="filter-bar open">
+        <div class="filter-bar-header">
+            <h2>Course Filters</h2>
+            <button class="close-filter" aria-label="Close filter menu">
+                <i class='bx bx-x'></i>
+            </button>
+        </div>
+        
+        <!-- Category Filters -->
+        <div class="filter-section">
+            <h3><i class='bx bx-category'></i> Categories</h3>
+            
+            <!-- Web Development Category -->
+            <div class="filter-category">
+                <div class="filter-category-title">
+                    <span>Web Development</span>
+                    <i class='bx bx-chevron-right'></i>
+                </div>
+                <div class="filter-category-content">
+                    <div class="filter-item">
+                        <input type="checkbox" id="html" name="filter" value="HTML" data-filter="category">
+                        <label for="html">HTML</label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="css" name="filter" value="CSS" data-filter="category">
+                        <label for="css">CSS </label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="javascript" name="filter" value="JavaScript" data-filter="category">
+                        <label for="javascript">JavaScript </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cybersecurity Category -->
+            <div class="filter-category">
+                <div class="filter-category-title">
+                    <span>Cybersecurity</span>
+                    <i class='bx bx-chevron-right'></i>
+                </div>
+                <div class="filter-category-content">
+                    <div class="filter-item">
+                        <input type="checkbox" id="pentesting" name="filter" value="Pen Testing" data-filter="category">
+                        <label for="pentesting">Pen Testing </label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="redteaming" name="filter" value="Red Teaming" data-filter="category">
+                        <label for="redteaming">Red Teaming </label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="bugbounty" name="filter" value="Bug Bounty" data-filter="category">
+                        <label for="bugbounty">Bug Bounty </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Programming Languages Category -->
+            <div class="filter-category">
+                <div class="filter-category-title">
+                    <span>Programming</span>
+                    <i class='bx bx-chevron-right'></i>
+                </div>
+                <div class="filter-category-content">
+                    <div class="filter-item">
+                        <input type="checkbox" id="python" name="filter" value="Python" data-filter="category">
+                        <label for="python">Python </label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="cpp" name="filter" value="C++" data-filter="category">
+                        <label for="cpp">C++ </label>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="scratch" name="filter" value="Scratch" data-filter="category">
+                        <label for="scratch">Scratch </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Language Filters -->
+        <div class="filter-section">
+            <h3><i class='bx bx-globe'></i> Language</h3>
+            <div class="filter-item">
+                <input type="checkbox" id="all-languages" name="language" value="all" checked data-filter="language">
+                <label for="all-languages">All Languages </label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="english" name="language" value="English" data-filter="language">
+                <label for="english">English </label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="arabic" name="language" value="Arabic" data-filter="language">
+                <label for="arabic">Arabic </label>
+            </div>
+        </div>
+        
+        <!-- Price Filters -->
+        <div class="filter-section">
+            <h3><i class='bx bx-credit-card'></i> Price</h3>
+            <div class="filter-item">
+                <input type="checkbox" id="all-prices" name="price" value="all" checked data-filter="price">
+                <label for="all-prices">All Prices </label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="free" name="price" value="free" data-filter="price">
+                <label for="free">Free </label>
+            </div>
+            <div class="filter-item">
+                <input type="checkbox" id="paid" name="price" value="paid" data-filter="price">
+                <label for="paid">Paid </label>
+            </div>
+        </div>
+        
+        <button class="reset-filters">Reset All Filters</button>
+    </div>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Premium Coding Courses</h1>
+        <p>Master in-demand skills with our expert-led courses</p>
+    </div>
+
+    <!-- Courses Container -->
+    <div id="courses-container">
+        <!-- Sample Course Cards -->
+        <div class="course-card" data-category="Scratch" data-language="English" data-price="free" data-course-id="scratch-basics">
+            <div class="course-card-img">
+                <img src="https://source.unsplash.com/random/600x400/?coding,scratch" alt="Scratch Basics" loading="lazy">
+                <span class="course-badge">Free</span>
+            </div>
+            <div class="course-info">
+                <h3>Scratch Programming Fundamentals</h3>
+                <div class="course-meta">
+                    <span><i class='bx bx-time'></i> 8h</span>
+                    <span><i class='bx bx-user'></i> Beginner</span>
+                </div>
+                <div class="price-container">
+                    <p class="price">Free <span class="sale"></span></p>
+                    <span><i class='bx bx-star'></i> 4.8</span>
+                </div>
+                <div class="buttons">
+                    <button class="button add-to-cart" data-course-id="scratch-basics">
+                        <i class='bx bx-cart'></i> Enroll
+                    </button>
+                    <button class="button view-course" onclick="window.location.href='https://www.youtube.com/watch?v=D16hTnDGweo&list=PLy4zsTUHwGJJooiDHnqXSeHvKHIrXiAHS'">
+                        <i class='bx bx-play'></i> Preview
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="course-card" data-category="HTML" data-language="English" data-price="free" data-course-id="html-fundamentals">
+            <div class="course-card-img">
+                <img src="https://source.unsplash.com/random/600x400/?html,web" alt="HTML Fundamentals" loading="lazy">
+                <span class="course-badge">Free</span>
+            </div>
+            <div class="course-info">
+                <h3>Modern HTML5 Mastery</h3>
+                <div class="course-meta">
+                    <span><i class='bx bx-time'></i> 12h</span>
+                    <span><i class='bx bx-user'></i> Beginner</span>
+                </div>
+                <div class="price-container">
+                    <p class="price">Free <span class="sale"></span></p>
+                    <span><i class='bx bx-star'></i> 4.9</span>
+                </div>
+                <div class="buttons">
+                    <button class="button add-to-cart" data-course-id="html-fundamentals">
+                        <i class='bx bx-cart'></i> Enroll
+                    </button>
+                    <button class="button view-course" onclick="window.location.href='https://example.com/html-course'">
+                        <i class='bx bx-play'></i> Preview
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="course-card" data-category="JavaScript" data-language="Arabic" data-price="paid" data-course-id="js-advanced">
+            <div class="course-card-img">
+                <img src="https://source.unsplash.com/random/600x400/?javascript,code" alt="JavaScript Advanced" loading="lazy">
+                <span class="course-badge">Popular</span>
+            </div>
+            <div class="course-info">
+                <h3>Advanced JavaScript Patterns</h3>
+                <div class="course-meta">
+                    <span><i class='bx bx-time'></i> 25h</span>
+                    <span><i class='bx bx-user'></i> Advanced</span>
+                </div>
+                <div class="price-container">
+                    <p class="price">$49.99 <span class="sale">$69.99</span></p>
+                    <span><i class='bx bx-star'></i> 4.7</span>
+                </div>
+                <div class="buttons">
+                    <button class="button add-to-cart" data-course-id="js-advanced">
+                        <i class='bx bx-cart'></i> Buy Now
+                    </button>
+                    <button class="button view-course" onclick="window.location.href='https://example.com/js-course'">
+                        <i class='bx bx-play'></i> Preview
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="course-card" data-category="Pen Testing" data-language="English" data-price="paid" data-course-id="pen-testing">
+            <div class="course-card-img">
+                <img src="https://source.unsplash.com/random/600x400/?hacking,security" alt="Penetration Testing" loading="lazy">
+                <span class="course-badge">New</span>
+            </div>
+            <div class="course-info">
+                <h3>Ethical Hacking: Penetration Testing </h3>
+                <div class="course-meta">
+                    <span><i class='bx bx-time'></i> 35h</span>
+                    <span><i class='bx bx-user'></i> Intermediate</span>
+                </div>
+                <div class="price-container">
+                    <p class="price">$89.99 <span class="sale"></span></p>
+                    <span><i class='bx bx-star'></i> 4.9</span>
+                </div>
+                <div class="buttons">
+                    <button class="button add-to-cart" data-course-id="pen-testing">
+                        <i class='bx bx-cart'></i> Buy Now
+                    </button>
+                    <button class="button view-course" onclick="window.location.href='https://example.com/pen-testing'">
+                        <i class='bx bx-play'></i> Preview
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="course-card" data-category="Python" data-language="English" data-price="paid" data-course-id="python-ds">
+            <div class="course-card-img">
+                <img src="https://source.unsplash.com/random/600x400/?python,programming" alt="Python Data Science" loading="lazy">
+                <span class="course-badge">Bestseller</span>
+            </div>
+            <div class="course-info">
+                <h3>Python for Data Science & ML</h3>
+                <div class="course-meta">
+                    <span><i class='bx bx-time'></i> 42h</span>
+                    <span><i class='bx bx-user'></i> Intermediate</span>
+                </div>
+                <div class="price-container">
+                    <p class="price">$79.99 <span class="sale">$99.99</span></p>
+                    <span><i class='bx bx-star'></i> 4.8</span>
+                </div>
+                <div class="buttons">
+                    <button class="button add-to-cart" data-course-id="python-ds">
+                        <i class='bx bx-cart'></i> Buy Now
+                    </button>
+                    <button class="button view-course" onclick="window.location.href='https://example.com/python-ds'">
+                        <i class='bx bx-play'></i> Preview
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="course-card" data-category="Bug Bounty" data-language="Arabic" data-price="free" data-course-id="bug-bounty">
+            <div class="course-card-img">
+                <img src="https://source.unsplash.com/random/600x400/?bug,bounty" alt="Bug Bounty" loading="lazy">
+                <span class="course-badge">Free</span>
+            </div>
+            <div class="course-info">
+                <h3>Bug Bounty Hunting Basics</h3>
+                <div class="course-meta">
+                    <span><i class='bx bx-time'></i> 15h</span>
+                    <span><i class='bx bx-user'></i> Beginner</span>
+                </div>
+                <div class="price-container">
+                    <p class="price">Free <span class="sale"></span></p>
+                    <span><i class='bx bx-star'></i> 4.6</span>
+                </div>
+                <div class="buttons">
+                    <button class="button add-to-cart" data-course-id="bug-bounty">
+                        <i class='bx bx-cart'></i> Enroll
+                    </button>
+                    <button class="button view-course" onclick="window.location.href='https://example.com/bug-bounty'">
+                        <i class='bx bx-play'></i> Preview
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- No Courses Message -->
+        <div class="no-courses" id="no-courses">
+            <i class='bx bx-search-alt'></i>
+            <h3>No courses found</h3>
+            <p>Try adjusting your filters to see more results</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const floatingFilter = document.querySelector('.floating-filter');
+            const filterBar = document.querySelector('.filter-bar');
+            const closeFilter = document.querySelector('.close-filter');
+            const resetFilters = document.querySelector('.reset-filters');
+            const categoryTitles = document.querySelectorAll('.filter-category-title');
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const courseCards = document.querySelectorAll('.course-card');
+            const noCoursesMessage = document.getElementById('no-courses');
+            const allLanguagesCheckbox = document.getElementById('all-languages');
+            const allPricesCheckbox = document.getElementById('all-prices');
+            
+            // Toggle Filter Bar
+            floatingFilter.addEventListener('click', (e) => {
+                e.stopPropagation();
+                filterBar.classList.toggle('open');
+            });
+            
+            // Close Filter Bar
+            closeFilter.addEventListener('click', () => {
+                filterBar.classList.remove('open');
+            });
+            
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!filterBar.contains(e.target) && e.target !== floatingFilter) {
+                    filterBar.classList.remove('open');
+                }
+            });
+            
+            // Toggle category content
+            categoryTitles.forEach(title => {
+                title.addEventListener('click', () => {
+                    title.classList.toggle('active');
+                    const content = title.nextElementSibling;
+                    content.classList.toggle('show');
+                });
+            });
+            
+            // Handle "All" checkboxes
+            allLanguagesCheckbox.addEventListener('change', function() {
+                document.querySelectorAll('input[data-filter="language"]').forEach(checkbox => {
+                    if (checkbox !== allLanguagesCheckbox) {
+                        checkbox.checked = false;
+                        checkbox.disabled = this.checked;
+                    }
+                });
+                filterCourses();
+            });
+            
+            allPricesCheckbox.addEventListener('change', function() {
+                document.querySelectorAll('input[data-filter="price"]').forEach(checkbox => {
+                    if (checkbox !== allPricesCheckbox) {
+                        checkbox.checked = false;
+                        checkbox.disabled = this.checked;
+                    }
+                });
+                filterCourses();
+            });
+            
+            // Reset all filters
+            resetFilters.addEventListener('click', () => {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                    checkbox.disabled = false;
+                });
+                
+                // Check the "all" options
+                allLanguagesCheckbox.checked = true;
+                allPricesCheckbox.checked = true;
+                
+                // Close all category contents
+                document.querySelectorAll('.filter-category-content').forEach(content => {
+                    content.classList.remove('show');
+                });
+                
+                document.querySelectorAll('.filter-category-title').forEach(title => {
+                    title.classList.remove('active');
+                });
+                
+                // Show all courses
+                filterCourses();
+            });
+            
+            // Initialize - open first category by default
+            if (categoryTitles.length > 0) {
+                categoryTitles[0].classList.add('active');
+                categoryTitles[0].nextElementSibling.classList.add('show');
+            }
+            
+            // Filter courses when checkboxes change
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', filterCourses);
+            });
+            
+            // Filter courses based on selected options
+            function filterCourses() {
+                // Get selected categories
+                const selectedCategories = Array.from(
+                    document.querySelectorAll('input[data-filter="category"]:checked')
+                ).map(checkbox => checkbox.value);
+                
+                // Get selected languages
+                const selectedLanguages = allLanguagesCheckbox.checked ? [] : Array.from(
+                    document.querySelectorAll('input[data-filter="language"]:checked')
+                ).map(checkbox => checkbox.value);
+                
+                // Get selected prices
+                const selectedPrices = allPricesCheckbox.checked ? [] : Array.from(
+                    document.querySelectorAll('input[data-filter="price"]:checked')
+                ).map(checkbox => checkbox.value);
+                
+                let visibleCourses = 0;
+                
+                // Filter each course card
+                courseCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    const cardLanguage = card.getAttribute('data-language');
+                    const cardPrice = card.getAttribute('data-price');
+                    
+                    // Check if the card matches the selected filters
+                    const matchesCategory = selectedCategories.length === 0 || 
+                                          selectedCategories.includes(cardCategory);
+                    
+                    const matchesLanguage = selectedLanguages.length === 0 || 
+                                           selectedLanguages.includes(cardLanguage);
+                    
+                    const matchesPrice = selectedPrices.length === 0 || 
+                                         selectedPrices.includes(cardPrice);
+                    
+                    // Show or hide the card based on filter matches
+                    if (matchesCategory && matchesLanguage && matchesPrice) {
+                        card.style.display = 'flex';
+                        visibleCourses++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Show no courses message if no cards are visible
+                if (visibleCourses === 0) {
+                    noCoursesMessage.style.display = 'flex';
+                } else {
+                    noCoursesMessage.style.display = 'none';
+                }
+                
+                // Update counts (this would normally come from server)
+                updateCourseCounts();
+            }
+            
+        
+            // Initial filter to account for any pre-checked boxes
+            filterCourses();
+        });
+    </script>
+
+
+
+
+<script type="module">
+  
+</script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { 
+        getAuth, 
+        onAuthStateChanged 
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    import { 
+        getFirestore, 
+        collection, 
+        query, 
+        where, 
+        getDocs, 
+        addDoc 
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+    
+    // Initialize Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyDZPYgt6-X23p-gValJxK4IA-fIr0BIwoY",
+        authDomain: "courses-platform-755d5.firebaseapp.com",
+        projectId: "courses-platform-755d5",
+        storageBucket: "courses-platform-755d5.appspot.com",
+        messagingSenderId: "1092760035864",
+        appId: "1:1092760035864:web:b81d64a3ce01f2e5bed96d"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app); // Initialize auth
+    const db = getFirestore(app);
+    
+    // Main function
+    function initializeAppLogic() {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User logged in:", user.uid);
+                setupCourseButtons(user.uid);
+            } else {
+                console.log("User not logged in");
+                alert("Please log in to add courses.");
+            }
+        });
+    }
+    
+    // Set up course buttons
+    function setupCourseButtons(userId) {
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const card = e.target.closest('.course-card');
+                
+                // Validate card exists
+                if (!card) {
+                    console.error("No course card found");
+                    return;
+                }
+    
+                // Get course data - ADD NULL CHECKS
+                const courseId = card.dataset.courseId || card.getAttribute('data-course-id');
+                const courseTitle = card.querySelector('h3')?.textContent || "Untitled Course";
+                const coursePrice = card.querySelector('.price')?.textContent.trim() || "Free";
+                const courseImage = card.querySelector('img')?.src || "";
+                
+                // Debug: Verify values
+                console.log("Course Data:", {
+                    id: courseId,
+                    title: courseTitle,
+                    price: coursePrice,
+                    image: courseImage
+                });
+    
+                // Validate courseId exists
+                if (!courseId) {
+                    alert("Error: Course ID is missing");
+                    return;
+                }
+    
+                try {
+                    const myCoursesRef = collection(db, `users/${userId}/my-courses`);
+                    const q = query(myCoursesRef, where("id", "==", courseId));
+                    const snapshot = await getDocs(q);
+                    
+                    if (!snapshot.empty) {
+                        alert("Course already added!");
+                        return;
+                    }
+                    
+                    await addDoc(myCoursesRef, {
+                        id: courseId,
+                        title: courseTitle,
+                        price: coursePrice,
+                        image: courseImage,
+                        addedAt: new Date()
+                    });
+                    
+                    alert("Course added successfully!");
+                } catch (error) {
+                    console.error("Firebase Error:", error);
+                    alert("Failed to add course. See console for details.");
+                }
+            });
+        });
+    }
+    
+    // Initialize the app
+    initializeAppLogic();
+    
+    // Remove or define this if needed
+    // function updateCourseCounts() { ... }
+    </script>
+
+
+  <!-- /////////////////////////// -->
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+</body>
+</html>
