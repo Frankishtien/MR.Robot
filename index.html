@@ -1634,7 +1634,7 @@ element.addEventListener('click', function(e) {
       successMessage.style.display = "block";
       
       // Gmail URL scheme
-      var gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=quran9686@gmail.com&su=${encodeURIComponent("Contact from " + name)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\n" + message)}`;
+      var gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=admin@gmail.com&su=${encodeURIComponent("Contact from " + name)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\n" + message)}`;
       window.open(gmailUrl, "_blank");
       
       // Reset form after showing success
