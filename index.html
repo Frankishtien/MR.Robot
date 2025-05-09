@@ -21,54 +21,7 @@
 <!-- Firebase Authentication -->
 <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <style>
-    /* Navbar streak counter styles */
-.navbar-user {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-left: auto;
-  }
-  
-  .streak-counter {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 6px 12px;
-    background-color: rgba(255, 235, 59, 0.2);
-    border-radius: 20px;
-    font-weight: 600;
-    color: #ff9800;
-    border: 1px solid rgba(255, 152, 0, 0.3);
-    transition: all 0.3s ease;
-  }
-  
-  .streak-icon {
-    font-size: 1.2em;
-  }
-  
-  .streak-days {
-    font-size: 0.9em;
-  }
-  
-  /* Animation for when streak updates */
-  .streak-pop {
-    animation: streakPop 0.5s ease;
-    background-color: rgba(255, 235, 59, 0.4);
-  }
-  
-  @keyframes streakPop {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
-  
-  /* Mobile responsiveness */
-  @media (max-width: 768px) {
-    .streak-counter {
-      padding: 4px 8px;
-      font-size: 0.8em;
-    }
-  }
+
 </style>
 
     <title>MR.Robot</title>
@@ -88,7 +41,7 @@
         <button class="menu-toggle" onclick="toggleMenu()">&#9776;</button>
         <div class="menu" id="menu">
             <a href="#" onclick="window.location.href='./index.html'">Home</a>
-            <a href="#about" onclick="window.location.href='./index.html#about'">About</a>
+            <a href="#about" onclick="window.location.href='./index.html#services'">services</a>
             <a href="#" onclick="window.location.href='./html/new_courses.html'">Courses</a>
             <!-- Dropdown for 'Practices' -->
             <div class="dropdown">
@@ -151,7 +104,7 @@
         </p>
         
         <div class="cta-group">
-          <a href="#" class="cta-button cta-primary" onclick="window.location.href='/index.html#services'">Our services</a>
+          <a href="#services" class="cta-button cta-primary" >Our services</a>
           <a href="#" class="cta-button cta-secondary" onclick="window.location.href='./html/new_courses.html'">View Courses</a>
         </div>
         
